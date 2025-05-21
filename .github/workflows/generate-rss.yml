@@ -10,6 +10,8 @@ on:
 jobs:
   generate-rss:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout code
@@ -33,9 +35,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "actions@github.com"
-
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
       - name: Commit and push if changes
         run: |
           git add feed/www.gov-online.go.jp-info.rss LAST
