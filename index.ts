@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { JSDOM } from "jsdom";
 import pino from "pino";
+import { XMLBuilder } from "fast-xml-parser";
 
 // Logger setup
 const logger = pino({
@@ -17,6 +18,7 @@ const RSS_FILE_PATH = path.join("feed", "www.gov-online.go.jp-info.rss");
 const LAST_FILE_PATH = "LAST";
 const MAX_ITEMS = 40;
 const FETCH_TIMEOUT = 10000; // 10 seconds
+const IGNORE_LAST = process.env.IGNORE_LAST === "1"; // If IGNORE_LAST=1, ignore LAST file
 
 // Types
 interface NewsItem {
@@ -31,6 +33,12 @@ interface NewsItem {
  * @returns The last URL or null if file doesn't exist
  */
 async function readLastUrl(): Promise<string | null> {
+  // If IGNORE_LAST is true, return null to process all items
+  if (IGNORE_LAST) {
+    logger.info("IGNORE_LAST is set, will process up to MAX_ITEMS");
+    return null;
+  }
+
   try {
     const content = await fs.readFile(LAST_FILE_PATH, "utf-8");
     return content.trim();
@@ -51,6 +59,12 @@ async function readLastUrl(): Promise<string | null> {
  * @param url The URL to save
  */
 async function saveLastUrl(url: string): Promise<void> {
+  // If IGNORE_LAST is true, don't save the last URL
+  if (IGNORE_LAST) {
+    logger.info({ url }, "IGNORE_LAST is set, not saving URL to LAST file");
+    return;
+  }
+
   try {
     await fs.writeFile(LAST_FILE_PATH, url);
     logger.info({ url }, "Saved latest URL to LAST file");
@@ -177,43 +191,37 @@ function shouldContinueFetching(
  * @returns RSS XML string
  */
 function generateRss(items: NewsItem[]): string {
-  const rssItems = items
-    .map(
-      (item) => `
-    <item>
-      <title>${escapeXml(item.title)}</title>
-      <link>${escapeXml(item.link)}</link>
-      <description>${escapeXml(item.description)}</description>
-      <pubDate>${formatRssDate(item.pubDate)}</pubDate>
-    </item>
-  `,
-    )
-    .join("");
+  // XMLBuilder のオプション設定
+  const options = {
+    ignoreAttributes: false,
+    format: true,
+    indentBy: "  ",
+    suppressEmptyNode: false,
+  };
 
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
-  <channel>
-    <title>各府省の新着情報</title>
-    <link>https://www.gov-online.go.jp/info/index.html</link>
-    <description>各府省ウェブサイトに公表された重要な政策や政府からのお知らせをとりまとめ、分かりやすく紹介しています。</description>
-    <language>ja-JP</language>
-    ${rssItems}
-  </channel>
-</rss>`;
-}
+  const builder = new XMLBuilder(options);
 
-/**
- * Escape XML special characters
- * @param str String to escape
- * @returns Escaped string
- */
-function escapeXml(str: string): string {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&apos;");
+  const rssObj = {
+    "?xml": { "@_version": "1.0", "@_encoding": "UTF-8" },
+    rss: {
+      "@_version": "2.0",
+      channel: {
+        title: "各府省の新着情報",
+        link: "https://www.gov-online.go.jp/info/index.html",
+        description:
+          "各府省ウェブサイトに公表された重要な政策や政府からのお知らせをとりまとめ、分かりやすく紹介しています。",
+        language: "ja-JP",
+        item: items.map((item) => ({
+          title: item.title,
+          link: item.link,
+          description: item.description,
+          pubDate: formatRssDate(item.pubDate),
+        })),
+      },
+    },
+  };
+
+  return builder.build(rssObj);
 }
 
 /**
