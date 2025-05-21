@@ -6,6 +6,8 @@
 
 このプロジェクトは、[各府省の新着情報](https://www.gov-online.go.jp/info/index.html) ウェブページから情報を取得し、RSS フィードに変換するツールです。GitHub Actions を使用して毎日自動的に実行され、最新の情報を RSS フィードとして提供します。
 
+[www.gov-online.go.jp-info.rss](https://t-ashula.github.io/go-jp-rss/www.gov-online.go.jp-info.rss)
+
 ## 機能
 
 - 各府省の新着情報ウェブページから情報を取得
