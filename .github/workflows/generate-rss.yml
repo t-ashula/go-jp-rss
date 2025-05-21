@@ -2,9 +2,9 @@ name: Generate RSS Feed
 
 on:
   schedule:
-    # 日本時間 13:30 (UTC 04:30) に毎日実行
+    # Run daily at 13:30 JST (04:30 UTC)
     - cron: "30 4 * * *"
-  # 手動実行も可能にする
+  # Enable manual execution
   workflow_dispatch:
 
 jobs:
