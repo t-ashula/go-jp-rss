@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import crypto from "node:crypto";
 import { JSDOM } from "jsdom";
 import pino from "pino";
 import { XMLBuilder } from "fast-xml-parser";
@@ -11,10 +12,10 @@ const logger = pino({
 });
 
 // Constants
-const USER_AGENT =
+const DEFAULT_USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.000.0 Safari/537.36";
 const MAX_ITEMS = 40;
-const FETCH_TIMEOUT = 10000; // 10 seconds
+const DEFAULT_FETCH_TIMEOUT = 10000; // 10 seconds
 const IGNORE_LAST = process.env.IGNORE_LAST === "1"; // If IGNORE_LAST=1, ignore LAST file
 
 // Types
@@ -25,16 +26,97 @@ interface NewsItem {
   pubDate: string;
 }
 
+// Media settings types
+type CSSSelector = string;
+
+type ItemSelectorFunc = (jsdom: JSDOM, settings: MediaSettings) => Element[];
+type TitleSelectorFunc = (jsdom: JSDOM, settings: MediaSettings) => string;
+type LinkSelectorFunc = (jsdom: JSDOM, settings: MediaSettings) => URL;
+type PubDateSelectorFunc = (jsdom: JSDOM, settings: MediaSettings) => Date;
+type DescriptionSelectorFunc = (
+  jsdom: JSDOM,
+  settings: MediaSettings,
+) => string;
+
+type SelectorSettings = {
+  items: CSSSelector | ItemSelectorFunc;
+  title: CSSSelector | TitleSelectorFunc;
+  link: CSSSelector | LinkSelectorFunc;
+  pubDate: CSSSelector | PubDateSelectorFunc;
+  description: CSSSelector | DescriptionSelectorFunc;
+};
+
+type NextPageSelectorFunc = (
+  jsdom: JSDOM,
+  settings: MediaSettings,
+) => URL | null;
+
+type FetchSettings = {
+  userAgent?: string;
+  timeout?: number;
+  nextPageSelector?: CSSSelector | NextPageSelectorFunc;
+};
+
+type ChannelSettings = {
+  title: string;
+  description: string;
+  language: string;
+  feedPath: string;
+};
+
+interface MediaSettings {
+  channel: ChannelSettings;
+  selector: SelectorSettings;
+  fetch?: FetchSettings;
+}
+
 /**
- * Read the last processed URL from LAST file
+ * Generate media directory name from URL
+ * @param url Target URL
+ * @returns Directory name in format: hostname-hash
+ */
+function getMediaDirectoryName(url: URL): string {
+  const hostname = url.hostname;
+  const hash = crypto
+    .createHash("sha256")
+    .update(url.toString())
+    .digest("hex")
+    .substring(0, 16);
+  return `${hostname}-${hash}`;
+}
+
+/**
+ * Load media settings from directory
+ * @param url Target URL
+ * @returns Media settings
+ */
+async function loadMediaSettings(url: URL): Promise<MediaSettings> {
+  const dirName = getMediaDirectoryName(url);
+  const settingsPath = path.join("media", dirName, "settings.json");
+
+  try {
+    const content = await fs.readFile(settingsPath, "utf-8");
+    return JSON.parse(content) as MediaSettings;
+  } catch (error) {
+    logger.error({ error, settingsPath }, "Error loading media settings");
+    throw error;
+  }
+}
+
+/**
+ * Read the last processed URL from media directory
+ * @param url Target URL
  * @returns The last URL or null if file doesn't exist
  */
-async function readLastUrl(lastFilePath: string): Promise<string | null> {
+async function readLastUrl(url: URL): Promise<string | null> {
   // If IGNORE_LAST is true, return null to process all items
   if (IGNORE_LAST) {
     logger.info("IGNORE_LAST is set, will process up to MAX_ITEMS");
     return null;
   }
+
+  const dirName = getMediaDirectoryName(url);
+  const lastFilePath = path.join("media", dirName, "LAST");
 
   try {
     const content = await fs.readFile(lastFilePath, "utf-8");
@@ -52,38 +134,48 @@ async function readLastUrl(lastFilePath: string): Promise<string | null> {
 }
 
 /**
- * Save the latest URL to LAST file
- * @param url The URL to save
+ * Save the latest URL to LAST file in media directory
+ * @param targetUrl Target URL for media directory
+ * @param lastUrl The URL to save
  */
-async function saveLastUrl(url: string, lastFilePath: string): Promise<void> {
+async function saveLastUrl(targetUrl: URL, lastUrl: string): Promise<void> {
   // If IGNORE_LAST is true, don't save the last URL
   if (IGNORE_LAST) {
-    logger.info({ url }, "IGNORE_LAST is set, not saving URL to LAST file");
+    logger.info({ lastUrl }, "IGNORE_LAST is set, not saving URL to LAST file");
     return;
   }
 
+  const dirName = getMediaDirectoryName(targetUrl);
+  const lastFilePath = path.join("media", dirName, "LAST");
+
   try {
-    await fs.writeFile(lastFilePath, url);
-    logger.info({ url }, "Saved latest URL to LAST file");
+    await fs.writeFile(lastFilePath, lastUrl);
+    logger.info({ lastUrl }, "Saved latest URL to LAST file");
   } catch (error) {
-    logger.error({ error, url }, "Error saving to LAST file");
+    logger.error({ error, lastUrl }, "Error saving to LAST file");
     throw error;
   }
 }
 
 /**
- * Fetch HTML content from URL
+ * Fetch HTML content from URL using media settings
  * @param url The URL to fetch
+ * @param settings Media settings
  * @returns The HTML content
  */
-async function fetchHtml(url: string): Promise<string> {
+async function fetchHtml(
+  url: string,
+  settings: MediaSettings,
+): Promise<string> {
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
+    const timeout = settings.fetch?.timeout ?? DEFAULT_FETCH_TIMEOUT;
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
 
+    const userAgent = settings.fetch?.userAgent ?? DEFAULT_USER_AGENT;
     const response = await fetch(url, {
       headers: {
-        "User-Agent": USER_AGENT,
+        "User-Agent": userAgent,
       },
       signal: controller.signal,
     });
@@ -102,28 +194,72 @@ async function fetchHtml(url: string): Promise<string> {
 }
 
 /**
- * Parse HTML and extract news items
+ * Parse HTML and extract news items using media settings
  * @param html The HTML content
+ * @param settings Media settings
  * @returns Array of news items
  */
-function parseNewsItems(html: string): NewsItem[] {
+function parseNewsItems(html: string, settings: MediaSettings): NewsItem[] {
   const dom = new JSDOM(html);
   const document = dom.window.document;
-  const newsListItems = document.querySelectorAll("ul.p-newsList li");
 
-  const items: NewsItem[] = [...newsListItems].map((item) => {
-    const titleElement = item.querySelector(".p-newsList__title");
-    const linkElement = item.querySelector(".p-newsList__link");
-    const dateElement = item.querySelector(".p-newsList__date");
-    const categoryElement = item.querySelector(".p-newsList__categoryLabel");
+  // Get items using selector
+  let newsListItems: Element[];
+  if (typeof settings.selector.items === "string") {
+    newsListItems = [...document.querySelectorAll(settings.selector.items)];
+  } else {
+    newsListItems = settings.selector.items(dom, settings);
+  }
 
-    const title = titleElement?.textContent?.trim() ?? "";
-    const link = linkElement?.getAttribute("href") ?? "";
-    const dateText = dateElement?.textContent?.trim() ?? "";
-    const category = categoryElement?.textContent?.trim() ?? "";
-    const pubDate = dateElement?.getAttribute("datetime") ?? "";
+  const items: NewsItem[] = newsListItems.map((item) => {
+    // Extract title
+    let title = "";
+    if (typeof settings.selector.title === "string") {
+      const titleElement = item.querySelector(settings.selector.title);
+      title = titleElement?.textContent?.trim() ?? "";
+    } else {
+      title = settings.selector.title(dom, settings);
+    }
 
-    const description = `${dateText} ${category} ${title}`;
+    // Extract link
+    let link = "";
+    if (typeof settings.selector.link === "string") {
+      const linkElement = item.querySelector(settings.selector.link);
+      link = linkElement?.getAttribute("href") ?? "";
+    } else {
+      const linkUrl = settings.selector.link(dom, settings);
+      link = linkUrl.toString();
+    }
+
+    // Extract pubDate
+    let pubDate = "";
+    if (typeof settings.selector.pubDate === "string") {
+      const dateElement = item.querySelector(settings.selector.pubDate);
+      pubDate = dateElement?.getAttribute("datetime") ?? "";
+    } else {
+      const date = settings.selector.pubDate(dom, settings);
+      pubDate = date.toISOString();
+    }
+
+    // Extract description
+    let description = "";
+    if (typeof settings.selector.description === "string") {
+      if (settings.selector.description === "custom") {
+        // For gov-online.go.jp custom description logic
+        const dateElement = item.querySelector(".p-newsList__date");
+        const categoryElement = item.querySelector(
+          ".p-newsList__categoryLabel",
+        );
+        const dateText = dateElement?.textContent?.trim() ?? "";
+        const category = categoryElement?.textContent?.trim() ?? "";
+        description = `${dateText} ${category} ${title}`;
+      } else {
+        const descElement = item.querySelector(settings.selector.description);
+        description = descElement?.textContent?.trim() ?? "";
+      }
+    } else {
+      description = settings.selector.description(dom, settings);
+    }
 
     return {
       title,
@@ -181,11 +317,17 @@ function shouldContinueFetching(
 }
 
 /**
- * Generate RSS XML from news items
+ * Generate RSS XML from news items using media settings
  * @param items Array of news items
+ * @param settings Media settings
+ * @param targetUrl Target URL
  * @returns RSS XML string
  */
-function generateRss(items: NewsItem[]): string {
+function generateRss(
+  items: NewsItem[],
+  settings: MediaSettings,
+  targetUrl: URL,
+): string {
   // XMLBuilder のオプション設定
   const options = {
     ignoreAttributes: false,
@@ -201,11 +343,10 @@ function generateRss(items: NewsItem[]): string {
     rss: {
       "@_version": "2.0",
       channel: {
-        title: "各府省の新着情報",
-        link: "https://www.gov-online.go.jp/info/index.html",
-        description:
-          "各府省ウェブサイトに公表された重要な政策や政府からのお知らせをとりまとめ、分かりやすく紹介しています。",
-        language: "ja-JP",
+        title: settings.channel.title,
+        link: targetUrl.toString(),
+        description: settings.channel.description,
+        language: settings.channel.language,
         item: items.map((item) => ({
           title: item.title,
           link: item.link,
@@ -235,39 +376,58 @@ function formatRssDate(dateStr: string): string {
 }
 
 /**
- * Extract next page URL from HTML
+ * Extract next page URL from HTML using media settings
  * @param html HTML content
+ * @param settings Media settings
+ * @param currentUrl Current URL for resolving relative URLs
  * @returns Next page URL or null
  */
-function getNextPageUrl(html: string): string | null {
-  const dom = new JSDOM(html);
-  const document = dom.window.document;
-  const nextPageLink = document.querySelector("div.p-pagination__next a");
+function getNextPageUrl(
+  html: string,
+  settings: MediaSettings,
+  currentUrl: URL,
+): string | null {
+  if (!settings.fetch?.nextPageSelector) {
+    return null;
+  }
 
-  if (nextPageLink) {
-    const href = nextPageLink.getAttribute("href");
-    if (href) {
-      // Convert relative URL to absolute
-      if (href.startsWith("/")) {
-        return `https://www.gov-online.go.jp${href}`;
+  const dom = new JSDOM(html);
+
+  if (typeof settings.fetch.nextPageSelector === "string") {
+    const document = dom.window.document;
+    const nextPageLink = document.querySelector(
+      settings.fetch.nextPageSelector,
+    );
+
+    if (nextPageLink) {
+      const href = nextPageLink.getAttribute("href");
+      if (href) {
+        // Convert relative URL to absolute
+        if (href.startsWith("/")) {
+          return `${currentUrl.protocol}//${currentUrl.host}${href}`;
+        }
+        return href;
       }
-      return href;
     }
+  } else {
+    const nextUrl = settings.fetch.nextPageSelector(dom, settings);
+    return nextUrl ? nextUrl.toString() : null;
   }
 
   return null;
 }
 
 /**
- * Generate RSS for a specific URL
+ * Generate RSS for a specific URL using media settings
  * @param url Target URL to process
  */
 export async function generate(url: URL): Promise<void> {
-  // Read last processed URL
-  const rssFilePath = path.join("feed", "www.gov-online.go.jp-info.rss");
-  const lastFilePath = "LAST";
+  // Load media settings
+  const settings = await loadMediaSettings(url);
 
-  const lastUrl = await readLastUrl(lastFilePath);
+  // Read last processed URL
+  const rssFilePath = path.join("feed", settings.channel.feedPath);
+  const lastUrl = await readLastUrl(url);
   logger.info({ lastUrl, targetUrl: url.toString() }, "Starting process");
 
   let currentUrl = url.toString();
@@ -280,10 +440,10 @@ export async function generate(url: URL): Promise<void> {
     logger.info({ url: currentUrl }, "Fetching page");
 
     // Fetch HTML
-    const html = await fetchHtml(currentUrl);
+    const html = await fetchHtml(currentUrl, settings);
 
     // Parse news items
-    const items = parseNewsItems(html);
+    const items = parseNewsItems(html, settings);
     if (items.length === 0) {
       logger.warn("No news items found on page, stopping");
       break;
@@ -293,7 +453,7 @@ export async function generate(url: URL): Promise<void> {
     allItems = [...allItems, ...items];
 
     // Get next page URL
-    const nextPageUrl = getNextPageUrl(html);
+    const nextPageUrl = getNextPageUrl(html, settings, new URL(currentUrl));
 
     // Check if we should continue
     if (!shouldContinueFetching(allItems, lastUrl, nextPageUrl, oneWeekAgo)) {
@@ -322,7 +482,7 @@ export async function generate(url: URL): Promise<void> {
     logger.info({ count: allItems.length }, "Generating RSS");
 
     // Generate RSS
-    const rss = generateRss(allItems);
+    const rss = generateRss(allItems, settings, url);
 
     // Save RSS file
     await fs.mkdir(path.dirname(rssFilePath), { recursive: true });
@@ -330,7 +490,7 @@ export async function generate(url: URL): Promise<void> {
     logger.info({ path: rssFilePath }, "RSS file saved");
 
     // Save latest URL to LAST file
-    await saveLastUrl(allItems[0].link, lastFilePath);
+    await saveLastUrl(url, allItems[0].link);
   } else {
     logger.info("No new items found");
   }
