@@ -27,7 +27,7 @@ jobs:
         run: npm ci
 
       - name: Generate RSS feed
-        run: npm start
+        run: npm run generate
         env:
           # Set to 1 to ignore LAST file and always generate a full RSS feed
           # Set to 0 or remove to use LAST file for incremental updates

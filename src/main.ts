@@ -11,11 +11,8 @@ const logger = pino({
 });
 
 // Constants
-const GOV_INFO_URL = "https://www.gov-online.go.jp/info/index.html";
 const USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.000.0 Safari/537.36";
-const RSS_FILE_PATH = path.join("feed", "www.gov-online.go.jp-info.rss");
-const LAST_FILE_PATH = "LAST";
 const MAX_ITEMS = 40;
 const FETCH_TIMEOUT = 10000; // 10 seconds
 const IGNORE_LAST = process.env.IGNORE_LAST === "1"; // If IGNORE_LAST=1, ignore LAST file
@@ -32,7 +29,7 @@ interface NewsItem {
  * Read the last processed URL from LAST file
  * @returns The last URL or null if file doesn't exist
  */
-async function readLastUrl(): Promise<string | null> {
+async function readLastUrl(lastFilePath: string): Promise<string | null> {
   // If IGNORE_LAST is true, return null to process all items
   if (IGNORE_LAST) {
     logger.info("IGNORE_LAST is set, will process up to MAX_ITEMS");
@@ -40,7 +37,7 @@ async function readLastUrl(): Promise<string | null> {
   }
 
   try {
-    const content = await fs.readFile(LAST_FILE_PATH, "utf-8");
+    const content = await fs.readFile(lastFilePath, "utf-8");
     return content.trim();
   } catch (error) {
     // If file doesn't exist, return null
@@ -58,7 +55,7 @@ async function readLastUrl(): Promise<string | null> {
  * Save the latest URL to LAST file
  * @param url The URL to save
  */
-async function saveLastUrl(url: string): Promise<void> {
+async function saveLastUrl(url: string, lastFilePath: string): Promise<void> {
   // If IGNORE_LAST is true, don't save the last URL
   if (IGNORE_LAST) {
     logger.info({ url }, "IGNORE_LAST is set, not saving URL to LAST file");
@@ -66,7 +63,7 @@ async function saveLastUrl(url: string): Promise<void> {
   }
 
   try {
-    await fs.writeFile(LAST_FILE_PATH, url);
+    await fs.writeFile(lastFilePath, url);
     logger.info({ url }, "Saved latest URL to LAST file");
   } catch (error) {
     logger.error({ error, url }, "Error saving to LAST file");
@@ -262,88 +259,94 @@ function getNextPageUrl(html: string): string | null {
 }
 
 /**
+ * Generate RSS for a specific URL
+ * @param url Target URL to process
+ */
+export async function generate(url: URL): Promise<void> {
+  // Read last processed URL
+  const rssFilePath = path.join("feed", "www.gov-online.go.jp-info.rss");
+  const lastFilePath = "LAST";
+
+  const lastUrl = await readLastUrl(lastFilePath);
+  logger.info({ lastUrl, targetUrl: url.toString() }, "Starting process");
+
+  let currentUrl = url.toString();
+  let allItems: NewsItem[] = [];
+  const oneWeekAgo = new Date();
+  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+  // Fetch and process pages
+  while (true) {
+    logger.info({ url: currentUrl }, "Fetching page");
+
+    // Fetch HTML
+    const html = await fetchHtml(currentUrl);
+
+    // Parse news items
+    const items = parseNewsItems(html);
+    if (items.length === 0) {
+      logger.warn("No news items found on page, stopping");
+      break;
+    }
+
+    // Add to collection
+    allItems = [...allItems, ...items];
+
+    // Get next page URL
+    const nextPageUrl = getNextPageUrl(html);
+
+    // Check if we should continue
+    if (!shouldContinueFetching(allItems, lastUrl, nextPageUrl, oneWeekAgo)) {
+      break;
+    }
+
+    // Update current URL for next iteration
+    currentUrl = nextPageUrl as string;
+  }
+
+  // If we found items and have a last URL, filter out already processed items
+  if (lastUrl && allItems.length > 0) {
+    const lastUrlIndex = allItems.findIndex((item) => item.link === lastUrl);
+    if (lastUrlIndex !== -1) {
+      allItems = allItems.slice(0, lastUrlIndex);
+    }
+  }
+
+  // Limit to MAX_ITEMS if needed
+  if (allItems.length > MAX_ITEMS) {
+    allItems = allItems.slice(0, MAX_ITEMS);
+  }
+
+  // If we have items, generate and save RSS
+  if (allItems.length > 0) {
+    logger.info({ count: allItems.length }, "Generating RSS");
+
+    // Generate RSS
+    const rss = generateRss(allItems);
+
+    // Save RSS file
+    await fs.mkdir(path.dirname(rssFilePath), { recursive: true });
+    await fs.writeFile(rssFilePath, rss);
+    logger.info({ path: rssFilePath }, "RSS file saved");
+
+    // Save latest URL to LAST file
+    await saveLastUrl(allItems[0].link, lastFilePath);
+  } else {
+    logger.info("No new items found");
+  }
+
+  logger.info("Process completed successfully");
+}
+
+/**
  * Main function to fetch and process news
  */
-async function main(): Promise<void> {
+export async function main(): Promise<void> {
   try {
-    // Read last processed URL
-    const lastUrl = await readLastUrl();
-    logger.info({ lastUrl }, "Starting process");
-
-    let currentUrl = GOV_INFO_URL;
-    let allItems: NewsItem[] = [];
-    const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-
-    // Fetch and process pages
-    while (true) {
-      logger.info({ url: currentUrl }, "Fetching page");
-
-      // Fetch HTML
-      const html = await fetchHtml(currentUrl);
-
-      // Parse news items
-      const items = parseNewsItems(html);
-      if (items.length === 0) {
-        logger.warn("No news items found on page, stopping");
-        break;
-      }
-
-      // Add to collection
-      allItems = [...allItems, ...items];
-
-      // Get next page URL
-      const nextPageUrl = getNextPageUrl(html);
-
-      // Check if we should continue
-      if (!shouldContinueFetching(allItems, lastUrl, nextPageUrl, oneWeekAgo)) {
-        break;
-      }
-
-      // Update current URL for next iteration
-      currentUrl = nextPageUrl as string;
-    }
-
-    // If we found items and have a last URL, filter out already processed items
-    if (lastUrl && allItems.length > 0) {
-      const lastUrlIndex = allItems.findIndex((item) => item.link === lastUrl);
-      if (lastUrlIndex !== -1) {
-        allItems = allItems.slice(0, lastUrlIndex);
-      }
-    }
-
-    // Limit to MAX_ITEMS if needed
-    if (allItems.length > MAX_ITEMS) {
-      allItems = allItems.slice(0, MAX_ITEMS);
-    }
-
-    // If we have items, generate and save RSS
-    if (allItems.length > 0) {
-      logger.info({ count: allItems.length }, "Generating RSS");
-
-      // Generate RSS
-      const rss = generateRss(allItems);
-
-      // Save RSS file
-      await fs.mkdir(path.dirname(RSS_FILE_PATH), { recursive: true });
-      await fs.writeFile(RSS_FILE_PATH, rss);
-      logger.info({ path: RSS_FILE_PATH }, "RSS file saved");
-
-      // Save latest URL to LAST file
-      await saveLastUrl(allItems[0].link);
-    } else {
-      logger.info("No new items found");
-    }
-
-    logger.info("Process completed successfully");
+    const govInfoUrl = new URL("https://www.gov-online.go.jp/info/index.html");
+    await generate(govInfoUrl);
   } catch (error) {
     logger.error({ error }, "Process failed");
     process.exit(1);
   }
 }
-
-// Run the main function
-main().catch((error) => {
-  logger.fatal({ error }, "Unhandled error in main");
-  process.exit(1);
-});

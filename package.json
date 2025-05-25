@@ -2,9 +2,9 @@
   "name": "go-jp-rss",
   "version": "1.0.0",
   "description": "[各府省の新着情報](https://www.gov-online.go.jp/info/index.html) を RSS にする",
-  "main": "index.ts",
+  "main": "bin/generate.ts",
   "scripts": {
-    "start": "tsx index.ts",
+    "generate": "tsx bin/generate.ts",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "npx @biomejs/biome format --write ."
