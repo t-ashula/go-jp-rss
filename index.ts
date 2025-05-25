@@ -114,28 +114,26 @@ function parseNewsItems(html: string): NewsItem[] {
   const document = dom.window.document;
   const newsListItems = document.querySelectorAll("ul.p-newsList li");
 
-  const items: NewsItem[] = [];
-
-  newsListItems.forEach((item) => {
+  const items: NewsItem[] = [...newsListItems].map((item) => {
     const titleElement = item.querySelector(".p-newsList__title");
     const linkElement = item.querySelector(".p-newsList__link");
     const dateElement = item.querySelector(".p-newsList__date");
     const categoryElement = item.querySelector(".p-newsList__categoryLabel");
 
-    if (titleElement && linkElement && dateElement && categoryElement) {
-      const title = titleElement.textContent?.trim() || "";
-      const link = linkElement.getAttribute("href") || "";
-      const dateText = dateElement.textContent?.trim() || "";
-      const category = categoryElement.textContent?.trim() || "";
-      const dateTimeAttr = dateElement.getAttribute("datetime") || "";
+    const title = titleElement?.textContent?.trim() ?? "";
+    const link = linkElement?.getAttribute("href") ?? "";
+    const dateText = dateElement?.textContent?.trim() ?? "";
+    const category = categoryElement?.textContent?.trim() ?? "";
+    const pubDate = dateElement?.getAttribute("datetime") ?? "";
 
-      items.push({
-        title,
-        link,
-        description: `${dateText} ${category} ${title}`,
-        pubDate: dateTimeAttr,
-      });
-    }
+    const description = `${dateText} ${category} ${title}`;
+
+    return {
+      title,
+      link,
+      description,
+      pubDate,
+    };
   });
 
   return items;
@@ -174,7 +172,7 @@ function shouldContinueFetching(
 
   // Check if the latest item is older than one week
   const latestItem = items[items.length - 1];
-  if (latestItem && latestItem.pubDate) {
+  if (latestItem?.pubDate) {
     const itemDate = new Date(latestItem.pubDate);
     if (itemDate < oneWeekAgo) {
       logger.info({ itemDate }, "Items are older than one week, stopping");
