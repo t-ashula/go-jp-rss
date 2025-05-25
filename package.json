@@ -6,7 +6,7 @@
   "scripts": {
     "generate": "tsx bin/generate.ts",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
     "format": "npx @biomejs/biome format --write ."
   },
   "keywords": [],
@@ -26,6 +26,7 @@
     "globals": "^16.1.0",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.32.1"
+    "typescript-eslint": "^8.32.1",
+    "vitest": "^3.1.4"
   }
 }
