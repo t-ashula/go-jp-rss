@@ -37,10 +37,19 @@ npm install
 ### 実行方法
 
 ```bash
-npm start
+npm run generate
 ```
 
 実行すると、`feed/www.gov-online.go.jp-info.rss` に RSS ファイルが生成されます。
+
+#### 環境変数
+
+- `IGNORE_LAST=1`: LASTファイルの値を無視して、すべての記事を再処理します
+
+```bash
+# LASTファイルを無視して実行
+IGNORE_LAST=1 npm run generate
+```
 
 ## GitHub 連携
 
