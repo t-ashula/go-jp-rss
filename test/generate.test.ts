@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { generate } from "../src/main.js";
-import { createCSSSelector } from "../src/types.js";
+import { createCSSSelector, type Medium } from "../src/types.js";
 
 // Mock fs module
 vi.mock("node:fs/promises");
@@ -10,6 +10,18 @@ vi.mock("node:fs/promises");
 describe("generate function", () => {
   const fixtureDir = "test/fixtures/www.gov-online.go.jp-2735fa68445b98e6";
   const testUrl = new URL("https://www.gov-online.go.jp/info/index.html");
+
+  // Create test medium object
+  const createTestMedium = (): Medium => ({
+    url: testUrl,
+    last: null,
+    fetchedAt: null,
+    settings: {
+      targetUrl: testUrl,
+      ...mockSettings,
+    },
+    mediaPath: "media/www.gov-online.go.jp-2735fa68445b98e6",
+  });
 
   // Mock the fetch function
   const mockFetch = vi.fn();
@@ -73,14 +85,8 @@ describe("generate function", () => {
       });
 
     // Mock fs operations
-    const mockReadFile = vi.mocked(fs.readFile);
     const mockWriteFile = vi.mocked(fs.writeFile);
     const mockMkdir = vi.mocked(fs.mkdir);
-
-    // Mock settings.json read
-    mockReadFile
-      .mockResolvedValueOnce(JSON.stringify(mockSettings)) // settings.json
-      .mockRejectedValueOnce({ code: "ENOENT" }); // LAST file (not found)
 
     // Mock directory creation
     mockMkdir.mockResolvedValue(undefined);
@@ -89,13 +95,7 @@ describe("generate function", () => {
     mockWriteFile.mockResolvedValue(undefined);
 
     // Run the generate function
-    await generate(testUrl);
-
-    // Verify that settings.json was read
-    expect(mockReadFile).toHaveBeenCalledWith(
-      "media/www.gov-online.go.jp-2735fa68445b98e6/settings.json",
-      "utf-8",
-    );
+    await generate(createTestMedium());
 
     // Verify that fetch was called with correct URLs
     expect(mockFetch).toHaveBeenCalledWith(
@@ -121,18 +121,10 @@ describe("generate function", () => {
   });
 
   it("should handle fetch errors gracefully", async () => {
-    // Mock fs operations
-    const mockReadFile = vi.mocked(fs.readFile);
-
-    // Mock settings.json read first, then LAST file read (not found)
-    mockReadFile
-      .mockResolvedValueOnce(JSON.stringify(mockSettings)) // settings.json
-      .mockRejectedValueOnce({ code: "ENOENT" }); // LAST file (not found)
-
     // Mock fetch to throw an error
     mockFetch.mockRejectedValueOnce(new Error("Network error"));
 
     // Expect the function to throw
-    await expect(generate(testUrl)).rejects.toThrow("Network error");
+    await expect(generate(createTestMedium())).rejects.toThrow("Network error");
   });
 });

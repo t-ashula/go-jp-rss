@@ -59,6 +59,15 @@ interface MediaSettings {
   fetch?: FetchSettings;
 }
 
+// Medium interface for handling multiple media sources
+interface Medium {
+  url: URL;
+  last: string | null;
+  fetchedAt: Date | null;
+  settings: MediaSettings;
+  mediaPath: string;
+}
+
 export type {
   NewsItem,
   CSSSelector,
@@ -72,6 +81,7 @@ export type {
   FetchSettings,
   ChannelSettings,
   MediaSettings,
+  Medium,
 };
 
 export { createCSSSelector };
