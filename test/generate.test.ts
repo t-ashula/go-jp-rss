@@ -126,4 +126,64 @@ describe("generate function", () => {
     // Expect the function to throw
     await expect(generate(createTestMedium())).rejects.toThrow("Network error");
   });
+
+  it("should ignore LAST value when IGNORE_LAST environment variable is set to 1", async () => {
+    // Set environment variable
+    const originalIgnoreLast = process.env.IGNORE_LAST;
+    process.env.IGNORE_LAST = "1";
+
+    try {
+      // Read actual fixture files for test data
+      const realFs = await vi.importActual<typeof import("node:fs/promises")>(
+        "node:fs/promises",
+      );
+      const html0 = await realFs.readFile(
+        path.join(fixtureDir, "0.html"),
+        "utf-8",
+      );
+
+      // Mock fetch responses
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        text: () => Promise.resolve(html0),
+      });
+
+      // Mock fs operations
+      const mockWriteFile = vi.mocked(fs.writeFile);
+      const mockMkdir = vi.mocked(fs.mkdir);
+
+      // Mock directory creation
+      mockMkdir.mockResolvedValue(undefined);
+
+      // Mock RSS file write
+      mockWriteFile.mockResolvedValue(undefined);
+
+      // Create test medium with a last URL that would normally stop processing
+      const mediumWithLast = createTestMedium();
+      mediumWithLast.last =
+        "https://www.gov-online.go.jp/info/some-old-article.html";
+
+      // Run the generate function
+      await generate(mediumWithLast);
+
+      // Verify that RSS file was still written (meaning LAST was ignored)
+      expect(mockWriteFile).toHaveBeenCalledWith(
+        "feed/www.gov-online.go.jp-info.rss",
+        expect.stringContaining('<?xml version="1.0" encoding="UTF-8"?>'),
+      );
+
+      // Verify that LAST file was written to media directory
+      expect(mockWriteFile).toHaveBeenCalledWith(
+        "media/www.gov-online.go.jp-2735fa68445b98e6/LAST",
+        expect.any(String),
+      );
+    } finally {
+      // Restore original environment variable
+      if (originalIgnoreLast !== undefined) {
+        process.env.IGNORE_LAST = originalIgnoreLast;
+      } else {
+        process.env.IGNORE_LAST = undefined;
+      }
+    }
+  });
 });

@@ -1,5 +1,5 @@
 import type { MediaSettings } from "../../src/types.js";
-import { createCSSSelector } from "../../src/types.js";
+import { css } from "../../src/types.js";
 
 // Media settings for www.gov-online.go.jp
 const settings: Omit<MediaSettings, "targetUrl"> = {
@@ -11,17 +11,17 @@ const settings: Omit<MediaSettings, "targetUrl"> = {
     feedPath: "www.gov-online.go.jp-info.rss",
   },
   selector: {
-    items: createCSSSelector("ul.p-newsList li"),
-    title: createCSSSelector(".p-newsList__title"),
-    link: createCSSSelector(".p-newsList__link"),
-    pubDate: createCSSSelector(".p-newsList__date"),
-    description: createCSSSelector("custom"), // Custom function will be handled by the loader
+    items: css`ul.p-newsList li`,
+    title: css`.p-newsList__title`,
+    link: css`.p-newsList__link`,
+    pubDate: css`.p-newsList__date`,
+    description: css`custom`, // Custom function will be handled by the loader
   },
   fetch: {
     userAgent:
       "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.000.0 Safari/537.36",
     timeout: 10000,
-    nextPageSelector: createCSSSelector("div.p-pagination__next a"),
+    nextPageSelector: css`div.p-pagination__next a`,
   },
 };
 

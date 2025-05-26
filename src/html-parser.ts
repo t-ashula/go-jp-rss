@@ -1,5 +1,6 @@
 import { JSDOM } from "jsdom";
 import type { NewsItem, MediaSettings } from "./types.js";
+import { isCSSSelector } from "./types.js";
 import { logger, DEFAULT_USER_AGENT, DEFAULT_FETCH_TIMEOUT } from "./config.js";
 
 /**
@@ -50,7 +51,7 @@ function parseNewsItems(html: string, settings: MediaSettings): NewsItem[] {
 
   // Get items using selector
   let newsListItems: Element[];
-  if (typeof settings.selector.items === "string") {
+  if (isCSSSelector(settings.selector.items)) {
     newsListItems = [...document.querySelectorAll(settings.selector.items)];
   } else {
     newsListItems = settings.selector.items(dom, settings);
@@ -59,7 +60,7 @@ function parseNewsItems(html: string, settings: MediaSettings): NewsItem[] {
   const items: NewsItem[] = newsListItems.map((item) => {
     // Extract title
     let title = "";
-    if (typeof settings.selector.title === "string") {
+    if (isCSSSelector(settings.selector.title)) {
       const titleElement = item.querySelector(settings.selector.title);
       title = titleElement?.textContent?.trim() ?? "";
     } else {
@@ -68,7 +69,7 @@ function parseNewsItems(html: string, settings: MediaSettings): NewsItem[] {
 
     // Extract link
     let link = "";
-    if (typeof settings.selector.link === "string") {
+    if (isCSSSelector(settings.selector.link)) {
       const linkElement = item.querySelector(settings.selector.link);
       link = linkElement?.getAttribute("href") ?? "";
     } else {
@@ -78,7 +79,7 @@ function parseNewsItems(html: string, settings: MediaSettings): NewsItem[] {
 
     // Extract pubDate
     let pubDate = "";
-    if (typeof settings.selector.pubDate === "string") {
+    if (isCSSSelector(settings.selector.pubDate)) {
       const dateElement = item.querySelector(settings.selector.pubDate);
       pubDate = dateElement?.getAttribute("datetime") ?? "";
     } else {
@@ -88,7 +89,7 @@ function parseNewsItems(html: string, settings: MediaSettings): NewsItem[] {
 
     // Extract description
     let description = "";
-    if (typeof settings.selector.description === "string") {
+    if (isCSSSelector(settings.selector.description)) {
       if (settings.selector.description === "custom") {
         // For gov-online.go.jp custom description logic
         const dateElement = item.querySelector(".p-newsList__date");
@@ -135,7 +136,7 @@ function getNextPageUrl(
 
   const dom = new JSDOM(html);
 
-  if (typeof settings.fetch.nextPageSelector === "string") {
+  if (isCSSSelector(settings.fetch.nextPageSelector)) {
     const document = dom.window.document;
     const nextPageLink = document.querySelector(
       settings.fetch.nextPageSelector,

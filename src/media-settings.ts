@@ -61,14 +61,22 @@ async function loadMediaConfigurations(): Promise<Medium[]> {
 
           // Read LAST file (optional)
           let last: string | null = null;
-          try {
-            const lastContent = await fs.readFile(
-              path.join(mediaPath, "LAST"),
-              "utf-8",
-            );
-            last = lastContent.trim();
-          } catch {
-            // LAST file doesn't exist, which is fine
+
+          // Check if IGNORE_LAST environment variable is set to 1
+          const ignoreLast = process.env.IGNORE_LAST === "1";
+
+          if (!ignoreLast) {
+            try {
+              const lastContent = await fs.readFile(
+                path.join(mediaPath, "LAST"),
+                "utf-8",
+              );
+              last = lastContent.trim();
+            } catch {
+              // LAST file doesn't exist, which is fine
+            }
+          } else {
+            logger.info("IGNORE_LAST is set, ignoring LAST file");
           }
 
           // Read FETCHED_AT file (optional)

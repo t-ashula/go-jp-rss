@@ -17,6 +17,22 @@ const createCSSSelector = (selector: string): CSSSelector => {
   return selector as CSSSelector;
 };
 
+// Tagged template literal function for CSS selectors
+const css = (
+  strings: TemplateStringsArray,
+  ...values: unknown[]
+): CSSSelector => {
+  const selector = strings.reduce((result, string, i) => {
+    return result + string + (values[i] || "");
+  }, "");
+  return selector as CSSSelector;
+};
+
+// Type guard function to check if a value is a CSSSelector
+const isCSSSelector = (value: unknown): value is CSSSelector => {
+  return typeof value === "string"; // TODO: runtime check
+};
+
 type ItemSelectorFunc = (jsdom: JSDOM, settings: MediaSettings) => Element[];
 type TitleSelectorFunc = (jsdom: JSDOM, settings: MediaSettings) => string;
 type LinkSelectorFunc = (jsdom: JSDOM, settings: MediaSettings) => URL;
@@ -83,4 +99,4 @@ export type {
   Medium,
 };
 
-export { createCSSSelector };
+export { createCSSSelector, isCSSSelector, css };
