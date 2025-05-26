@@ -53,7 +53,6 @@ type ChannelSettings = {
 };
 
 interface MediaSettings {
-  targetUrl: URL;
   channel: ChannelSettings;
   selector: SelectorSettings;
   fetch?: FetchSettings;

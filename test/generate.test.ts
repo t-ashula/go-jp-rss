@@ -17,7 +17,6 @@ describe("generate function", () => {
     last: null,
     fetchedAt: null,
     settings: {
-      targetUrl: testUrl,
       ...mockSettings,
     },
     mediaPath: "media/www.gov-online.go.jp-2735fa68445b98e6",

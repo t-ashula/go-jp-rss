@@ -24,21 +24,11 @@ function getMediaDirectoryName(url: URL): string {
  * @param url Target URL
  * @returns Media settings
  */
-async function loadMediaSettings(url: URL): Promise<MediaSettings> {
-  const dirName = getMediaDirectoryName(url);
-  const settingsPath = path.join("media", dirName, "settings.ts");
-
+async function loadMediaSettings(settingsPath: string): Promise<MediaSettings> {
   try {
     // Import the TypeScript settings file
     const settingsModule = await import(path.resolve(settingsPath));
-    const rawSettings = settingsModule.default;
-
-    // Create the complete MediaSettings object with targetUrl
-    const settings: MediaSettings = {
-      ...rawSettings,
-      targetUrl: url,
-    };
-
+    const settings = settingsModule.default;
     return settings;
   } catch (error) {
     logger.error({ error, settingsPath }, "Error loading media settings");
@@ -94,7 +84,8 @@ async function loadMediaConfigurations(): Promise<Medium[]> {
           }
 
           // Load settings
-          const settings = await loadMediaSettings(url);
+          const settingsPath = path.join(mediaPath, "settings.ts");
+          const settings = await loadMediaSettings(settingsPath);
 
           media.push({
             url,
@@ -123,4 +114,4 @@ async function loadMediaConfigurations(): Promise<Medium[]> {
   return media;
 }
 
-export { loadMediaConfigurations };
+export { loadMediaConfigurations, getMediaDirectoryName };
