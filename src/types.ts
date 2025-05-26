@@ -9,7 +9,13 @@ interface NewsItem {
 }
 
 // Media settings types
-type CSSSelector = string;
+// Branded type for CSS selectors to ensure type safety
+type CSSSelector = string & { readonly __brand: "CSSSelector" };
+
+// Helper function to create a CSSSelector from a string
+const createCSSSelector = (selector: string): CSSSelector => {
+  return selector as CSSSelector;
+};
 
 type ItemSelectorFunc = (jsdom: JSDOM, settings: MediaSettings) => Element[];
 type TitleSelectorFunc = (jsdom: JSDOM, settings: MediaSettings) => string;
@@ -67,3 +73,5 @@ export type {
   ChannelSettings,
   MediaSettings,
 };
+
+export { createCSSSelector };

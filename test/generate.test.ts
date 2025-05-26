@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { generate } from "../src/main.js";
+import { createCSSSelector } from "../src/types.js";
 
 // Mock fs module
 vi.mock("node:fs/promises");
@@ -23,17 +24,17 @@ describe("generate function", () => {
       feedPath: "www.gov-online.go.jp-info.rss",
     },
     selector: {
-      items: "ul.p-newsList li",
-      title: ".p-newsList__title",
-      link: ".p-newsList__link",
-      pubDate: ".p-newsList__date",
-      description: "custom",
+      items: createCSSSelector("ul.p-newsList li"),
+      title: createCSSSelector(".p-newsList__title"),
+      link: createCSSSelector(".p-newsList__link"),
+      pubDate: createCSSSelector(".p-newsList__date"),
+      description: createCSSSelector("custom"),
     },
     fetch: {
       userAgent:
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.000.0 Safari/537.36",
       timeout: 10000,
-      nextPageSelector: "div.p-pagination__next a",
+      nextPageSelector: createCSSSelector("div.p-pagination__next a"),
     },
   };
 

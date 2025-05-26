@@ -1,4 +1,3 @@
-import fs from "node:fs/promises";
 import path from "node:path";
 import crypto from "node:crypto";
 import type { MediaSettings } from "./types.js";
@@ -26,11 +25,20 @@ function getMediaDirectoryName(url: URL): string {
  */
 async function loadMediaSettings(url: URL): Promise<MediaSettings> {
   const dirName = getMediaDirectoryName(url);
-  const settingsPath = path.join("media", dirName, "settings.json");
+  const settingsPath = path.join("media", dirName, "settings.ts");
 
   try {
-    const content = await fs.readFile(settingsPath, "utf-8");
-    return JSON.parse(content) as MediaSettings;
+    // Import the TypeScript settings file
+    const settingsModule = await import(path.resolve(settingsPath));
+    const rawSettings = settingsModule.default;
+
+    // Create the complete MediaSettings object with targetUrl
+    const settings: MediaSettings = {
+      ...rawSettings,
+      targetUrl: url,
+    };
+
+    return settings;
   } catch (error) {
     logger.error({ error, settingsPath }, "Error loading media settings");
     throw error;
