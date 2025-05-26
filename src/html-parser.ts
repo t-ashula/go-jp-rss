@@ -64,7 +64,7 @@ function parseNewsItems(html: string, settings: MediaSettings): NewsItem[] {
       const titleElement = item.querySelector(settings.selector.title);
       title = titleElement?.textContent?.trim() ?? "";
     } else {
-      title = settings.selector.title(dom, settings);
+      title = settings.selector.title(item, dom, settings);
     }
 
     // Extract link
@@ -73,7 +73,7 @@ function parseNewsItems(html: string, settings: MediaSettings): NewsItem[] {
       const linkElement = item.querySelector(settings.selector.link);
       link = linkElement?.getAttribute("href") ?? "";
     } else {
-      const linkUrl = settings.selector.link(dom, settings);
+      const linkUrl = settings.selector.link(item, dom, settings);
       link = linkUrl.toString();
     }
 
@@ -83,28 +83,17 @@ function parseNewsItems(html: string, settings: MediaSettings): NewsItem[] {
       const dateElement = item.querySelector(settings.selector.pubDate);
       pubDate = dateElement?.getAttribute("datetime") ?? "";
     } else {
-      const date = settings.selector.pubDate(dom, settings);
+      const date = settings.selector.pubDate(item, dom, settings);
       pubDate = date.toISOString();
     }
 
     // Extract description
     let description = "";
     if (isCSSSelector(settings.selector.description)) {
-      if (settings.selector.description === "custom") {
-        // For gov-online.go.jp custom description logic
-        const dateElement = item.querySelector(".p-newsList__date");
-        const categoryElement = item.querySelector(
-          ".p-newsList__categoryLabel",
-        );
-        const dateText = dateElement?.textContent?.trim() ?? "";
-        const category = categoryElement?.textContent?.trim() ?? "";
-        description = `${dateText} ${category} ${title}`;
-      } else {
-        const descElement = item.querySelector(settings.selector.description);
-        description = descElement?.textContent?.trim() ?? "";
-      }
+      const descElement = item.querySelector(settings.selector.description);
+      description = descElement?.textContent?.trim() ?? "";
     } else {
-      description = settings.selector.description(dom, settings);
+      description = settings.selector.description(item, dom, settings);
     }
 
     return {

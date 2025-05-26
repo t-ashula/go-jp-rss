@@ -34,13 +34,17 @@ const isCSSSelector = (value: unknown): value is CSSSelector => {
 };
 
 type ItemSelectorFunc = (jsdom: JSDOM, settings: MediaSettings) => Element[];
-type TitleSelectorFunc = (jsdom: JSDOM, settings: MediaSettings) => string;
-type LinkSelectorFunc = (jsdom: JSDOM, settings: MediaSettings) => URL;
-type PubDateSelectorFunc = (jsdom: JSDOM, settings: MediaSettings) => Date;
-type DescriptionSelectorFunc = (
+
+type SelectorFunc<T> = (
+  item: Element,
   jsdom: JSDOM,
   settings: MediaSettings,
-) => string;
+) => T;
+
+type TitleSelectorFunc = SelectorFunc<string>;
+type LinkSelectorFunc = SelectorFunc<URL>;
+type PubDateSelectorFunc = SelectorFunc<Date>;
+type DescriptionSelectorFunc = SelectorFunc<string>;
 
 type SelectorSettings = {
   items: CSSSelector | ItemSelectorFunc;
@@ -87,6 +91,7 @@ export type {
   NewsItem,
   CSSSelector,
   ItemSelectorFunc,
+  SelectorFunc,
   TitleSelectorFunc,
   LinkSelectorFunc,
   PubDateSelectorFunc,
