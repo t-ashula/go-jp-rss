@@ -2,87 +2,10 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { NewsItem, Medium } from "./types.js";
 import { logger, MAX_ITEMS } from "./config.js";
-import { loadMediaSettings } from "./media-settings.js";
+import { loadMediaConfigurations } from "./media-settings.js";
 import { fetchHtml, parseNewsItems, getNextPageUrl } from "./html-parser.js";
 import { generateRss } from "./rss-generator.js";
 import { shouldContinueFetching } from "./fetch-utils.js";
-
-/**
- * Load all media configurations from the media directory
- * @returns Array of Medium objects
- */
-async function loadMediaConfigurations(): Promise<Medium[]> {
-  const mediaDir = "media";
-  const media: Medium[] = [];
-
-  try {
-    const entries = await fs.readdir(mediaDir, { withFileTypes: true });
-
-    for (const entry of entries) {
-      if (entry.isDirectory()) {
-        const mediaPath = path.join(mediaDir, entry.name);
-
-        try {
-          // Read URL file
-          const urlContent = await fs.readFile(
-            path.join(mediaPath, "URL"),
-            "utf-8",
-          );
-          const url = new URL(urlContent.trim());
-
-          // Read LAST file (optional)
-          let last: string | null = null;
-          try {
-            const lastContent = await fs.readFile(
-              path.join(mediaPath, "LAST"),
-              "utf-8",
-            );
-            last = lastContent.trim();
-          } catch {
-            // LAST file doesn't exist, which is fine
-          }
-
-          // Read FETCHED_AT file (optional)
-          let fetchedAt: Date | null = null;
-          try {
-            const fetchedAtContent = await fs.readFile(
-              path.join(mediaPath, "FETCHED_AT"),
-              "utf-8",
-            );
-            fetchedAt = new Date(fetchedAtContent.trim());
-          } catch {
-            // FETCHED_AT file doesn't exist, which is fine
-          }
-
-          // Load settings
-          const settings = await loadMediaSettings(url);
-
-          media.push({
-            url,
-            last,
-            fetchedAt,
-            settings,
-            mediaPath,
-          });
-
-          logger.info(
-            { url: url.toString(), mediaPath },
-            "Loaded media configuration",
-          );
-        } catch (error) {
-          logger.error(
-            { error, mediaPath },
-            "Failed to load media configuration",
-          );
-        }
-      }
-    }
-  } catch (error) {
-    logger.error({ error, mediaDir }, "Failed to read media directory");
-  }
-
-  return media;
-}
 
 /**
  * Generate RSS for a specific medium
