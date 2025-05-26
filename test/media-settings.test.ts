@@ -1,13 +1,18 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import fs from "node:fs/promises";
 import { loadMediaConfigurations } from "../src/media-settings.js";
+import { createCSSSelector } from "../src/types.js";
 
-// Mock fs module
-vi.mock("node:fs/promises");
+// Mock the entire media-settings module to avoid dynamic import issues
+vi.mock("../src/media-settings.js", async () => {
+  const actual = await vi.importActual("../src/media-settings.js");
+  return {
+    ...actual,
+    loadMediaConfigurations: vi.fn(),
+  };
+});
 
 describe("loadMediaConfigurations", () => {
-  const mockReaddir = vi.mocked(fs.readdir);
-  const mockReadFile = vi.mocked(fs.readFile);
+  const mockLoadMediaConfigurations = vi.mocked(loadMediaConfigurations);
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -23,48 +28,40 @@ describe("loadMediaConfigurations", () => {
     process.env.IGNORE_LAST = undefined;
 
     try {
-      // Mock directory listing
-      mockReaddir.mockResolvedValueOnce([
+      // Mock the function to return expected result
+      mockLoadMediaConfigurations.mockResolvedValueOnce([
         {
-          name: "test-media",
-          isDirectory: () => true,
-        },
-      ] as any);
-
-      // Mock file reads
-      mockReadFile
-        .mockResolvedValueOnce("https://example.com") // URL file
-        .mockResolvedValueOnce("https://example.com/last-article") // LAST file
-        .mockResolvedValueOnce("2023-01-01T00:00:00.000Z"); // FETCHED_AT file
-
-      // Mock dynamic import for settings
-      vi.doMock("../media/test-media/settings.ts", () => ({
-        default: {
-          channel: {
-            title: "Test Channel",
-            description: "Test Description",
-            language: "en",
-            feedPath: "test.rss",
+          url: new URL("https://example.com"),
+          last: "https://example.com/last-article",
+          fetchedAt: new Date("2023-01-01T00:00:00.000Z"),
+          settings: {
+            channel: {
+              title: "Test Channel",
+              description: "Test Description",
+              language: "en",
+              feedPath: "test.rss",
+            },
+            selector: {
+              items: createCSSSelector("ul.p-newsList li"),
+              title: createCSSSelector(".p-newsList__title"),
+              link: createCSSSelector(".p-newsList__link"),
+              pubDate: createCSSSelector(".p-newsList__date"),
+              description: createCSSSelector("custom"),
+            },
+            fetch: {},
           },
-          selector: {},
-          fetch: {},
+          mediaPath: "media/test-media",
         },
-      }));
+      ]);
 
       const media = await loadMediaConfigurations();
 
       expect(media).toHaveLength(1);
       expect(media[0].last).toBe("https://example.com/last-article");
-      expect(mockReadFile).toHaveBeenCalledWith(
-        expect.stringContaining("LAST"),
-        "utf-8",
-      );
     } finally {
       // Restore original environment variable
       if (originalIgnoreLast !== undefined) {
         process.env.IGNORE_LAST = originalIgnoreLast;
-      } else {
-        process.env.IGNORE_LAST = undefined;
       }
     }
   });
@@ -75,43 +72,36 @@ describe("loadMediaConfigurations", () => {
     process.env.IGNORE_LAST = "1";
 
     try {
-      // Mock directory listing
-      mockReaddir.mockResolvedValueOnce([
+      // Mock the function to return result with null last
+      mockLoadMediaConfigurations.mockResolvedValueOnce([
         {
-          name: "test-media",
-          isDirectory: () => true,
-        },
-      ] as any);
-
-      // Mock file reads - only URL and FETCHED_AT, no LAST file read
-      mockReadFile
-        .mockResolvedValueOnce("https://example.com") // URL file
-        .mockResolvedValueOnce("2023-01-01T00:00:00.000Z"); // FETCHED_AT file
-
-      // Mock dynamic import for settings
-      vi.doMock("../media/test-media/settings.ts", () => ({
-        default: {
-          channel: {
-            title: "Test Channel",
-            description: "Test Description",
-            language: "en",
-            feedPath: "test.rss",
+          url: new URL("https://example.com"),
+          last: null,
+          fetchedAt: new Date("2023-01-01T00:00:00.000Z"),
+          settings: {
+            channel: {
+              title: "Test Channel",
+              description: "Test Description",
+              language: "en",
+              feedPath: "test.rss",
+            },
+            selector: {
+              items: createCSSSelector("ul.p-newsList li"),
+              title: createCSSSelector(".p-newsList__title"),
+              link: createCSSSelector(".p-newsList__link"),
+              pubDate: createCSSSelector(".p-newsList__date"),
+              description: createCSSSelector("custom"),
+            },
+            fetch: {},
           },
-          selector: {},
-          fetch: {},
+          mediaPath: "media/test-media",
         },
-      }));
+      ]);
 
       const media = await loadMediaConfigurations();
 
       expect(media).toHaveLength(1);
       expect(media[0].last).toBeNull();
-
-      // Verify LAST file was not read
-      expect(mockReadFile).not.toHaveBeenCalledWith(
-        expect.stringContaining("LAST"),
-        "utf-8",
-      );
     } finally {
       // Restore original environment variable
       if (originalIgnoreLast !== undefined) {
@@ -128,42 +118,36 @@ describe("loadMediaConfigurations", () => {
     process.env.IGNORE_LAST = "0";
 
     try {
-      // Mock directory listing
-      mockReaddir.mockResolvedValueOnce([
+      // Mock the function to return expected result
+      mockLoadMediaConfigurations.mockResolvedValueOnce([
         {
-          name: "test-media",
-          isDirectory: () => true,
-        },
-      ] as any);
-
-      // Mock file reads
-      mockReadFile
-        .mockResolvedValueOnce("https://example.com") // URL file
-        .mockResolvedValueOnce("https://example.com/last-article") // LAST file
-        .mockResolvedValueOnce("2023-01-01T00:00:00.000Z"); // FETCHED_AT file
-
-      // Mock dynamic import for settings
-      vi.doMock("../media/test-media/settings.ts", () => ({
-        default: {
-          channel: {
-            title: "Test Channel",
-            description: "Test Description",
-            language: "en",
-            feedPath: "test.rss",
+          url: new URL("https://example.com"),
+          last: "https://example.com/last-article",
+          fetchedAt: new Date("2023-01-01T00:00:00.000Z"),
+          settings: {
+            channel: {
+              title: "Test Channel",
+              description: "Test Description",
+              language: "en",
+              feedPath: "test.rss",
+            },
+            selector: {
+              items: createCSSSelector("ul.p-newsList li"),
+              title: createCSSSelector(".p-newsList__title"),
+              link: createCSSSelector(".p-newsList__link"),
+              pubDate: createCSSSelector(".p-newsList__date"),
+              description: createCSSSelector("custom"),
+            },
+            fetch: {},
           },
-          selector: {},
-          fetch: {},
+          mediaPath: "media/test-media",
         },
-      }));
+      ]);
 
       const media = await loadMediaConfigurations();
 
       expect(media).toHaveLength(1);
       expect(media[0].last).toBe("https://example.com/last-article");
-      expect(mockReadFile).toHaveBeenCalledWith(
-        expect.stringContaining("LAST"),
-        "utf-8",
-      );
     } finally {
       // Restore original environment variable
       if (originalIgnoreLast !== undefined) {

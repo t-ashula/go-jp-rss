@@ -142,10 +142,22 @@ describe("generate function", () => {
         "utf-8",
       );
 
-      // Mock fetch responses
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        text: () => Promise.resolve(html0),
+      // Mock fetch responses - limit to prevent infinite loop
+      let fetchCallCount = 0;
+      mockFetch.mockImplementation(() => {
+        fetchCallCount++;
+        if (fetchCallCount <= 2) {
+          return Promise.resolve({
+            ok: true,
+            text: () => Promise.resolve(html0),
+          });
+        }
+        // Return HTML without next page link to stop pagination
+        return Promise.resolve({
+          ok: true,
+          text: () =>
+            Promise.resolve("<html><body>No more pages</body></html>"),
+        });
       });
 
       // Mock fs operations
