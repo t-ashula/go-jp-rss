@@ -24,7 +24,7 @@ function formatRssDate(dateStr: string): string {
  * @param targetUrl Target URL
  * @returns RSS XML string
  */
-export function generateRss(
+function generateRss(
   items: NewsItem[],
   settings: MediaSettings,
   targetUrl: URL,
@@ -60,3 +60,5 @@ export function generateRss(
 
   return builder.build(rssObj);
 }
+
+export { generateRss };

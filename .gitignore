@@ -133,3 +133,4 @@ dist
 .pnp.*
 tmp/*
 !tmp/.keep
+.roo

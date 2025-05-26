@@ -8,7 +8,7 @@ import { logger, IGNORE_LAST } from "./config.js";
  * @param url Target URL
  * @returns The last URL or null if file doesn't exist
  */
-export async function readLastUrl(url: URL): Promise<string | null> {
+async function readLastUrl(url: URL): Promise<string | null> {
   // If IGNORE_LAST is true, return null to process all items
   if (IGNORE_LAST) {
     logger.info("IGNORE_LAST is set, will process up to MAX_ITEMS");
@@ -38,10 +38,7 @@ export async function readLastUrl(url: URL): Promise<string | null> {
  * @param targetUrl Target URL for media directory
  * @param lastUrl The URL to save
  */
-export async function saveLastUrl(
-  targetUrl: URL,
-  lastUrl: string,
-): Promise<void> {
+async function saveLastUrl(targetUrl: URL, lastUrl: string): Promise<void> {
   // If IGNORE_LAST is true, don't save the last URL
   if (IGNORE_LAST) {
     logger.info({ lastUrl }, "IGNORE_LAST is set, not saving URL to LAST file");
@@ -59,3 +56,5 @@ export async function saveLastUrl(
     throw error;
   }
 }
+
+export { readLastUrl, saveLastUrl };

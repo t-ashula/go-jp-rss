@@ -9,7 +9,7 @@ import { logger, MAX_ITEMS } from "./config.js";
  * @param oneWeekAgo Date one week ago
  * @returns Boolean indicating whether to continue
  */
-export function shouldContinueFetching(
+function shouldContinueFetching(
   items: NewsItem[],
   lastUrl: string | null,
   nextPageUrl: string | null,
@@ -45,3 +45,5 @@ export function shouldContinueFetching(
 
   return true;
 }
+
+export { shouldContinueFetching };

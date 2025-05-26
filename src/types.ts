@@ -1,7 +1,7 @@
 import type { JSDOM } from "jsdom";
 
 // News item interface
-export interface NewsItem {
+interface NewsItem {
   title: string;
   link: string;
   description: string;
@@ -9,27 +9,18 @@ export interface NewsItem {
 }
 
 // Media settings types
-export type CSSSelector = string;
+type CSSSelector = string;
 
-export type ItemSelectorFunc = (
-  jsdom: JSDOM,
-  settings: MediaSettings,
-) => Element[];
-export type TitleSelectorFunc = (
-  jsdom: JSDOM,
-  settings: MediaSettings,
-) => string;
-export type LinkSelectorFunc = (jsdom: JSDOM, settings: MediaSettings) => URL;
-export type PubDateSelectorFunc = (
-  jsdom: JSDOM,
-  settings: MediaSettings,
-) => Date;
-export type DescriptionSelectorFunc = (
+type ItemSelectorFunc = (jsdom: JSDOM, settings: MediaSettings) => Element[];
+type TitleSelectorFunc = (jsdom: JSDOM, settings: MediaSettings) => string;
+type LinkSelectorFunc = (jsdom: JSDOM, settings: MediaSettings) => URL;
+type PubDateSelectorFunc = (jsdom: JSDOM, settings: MediaSettings) => Date;
+type DescriptionSelectorFunc = (
   jsdom: JSDOM,
   settings: MediaSettings,
 ) => string;
 
-export type SelectorSettings = {
+type SelectorSettings = {
   items: CSSSelector | ItemSelectorFunc;
   title: CSSSelector | TitleSelectorFunc;
   link: CSSSelector | LinkSelectorFunc;
@@ -37,26 +28,42 @@ export type SelectorSettings = {
   description: CSSSelector | DescriptionSelectorFunc;
 };
 
-export type NextPageSelectorFunc = (
+type NextPageSelectorFunc = (
   jsdom: JSDOM,
   settings: MediaSettings,
 ) => URL | null;
 
-export type FetchSettings = {
+type FetchSettings = {
   userAgent?: string;
   timeout?: number;
   nextPageSelector?: CSSSelector | NextPageSelectorFunc;
 };
 
-export type ChannelSettings = {
+type ChannelSettings = {
   title: string;
   description: string;
   language: string;
   feedPath: string;
 };
 
-export interface MediaSettings {
+interface MediaSettings {
+  targetUrl: URL;
   channel: ChannelSettings;
   selector: SelectorSettings;
   fetch?: FetchSettings;
 }
+
+export type {
+  NewsItem,
+  CSSSelector,
+  ItemSelectorFunc,
+  TitleSelectorFunc,
+  LinkSelectorFunc,
+  PubDateSelectorFunc,
+  DescriptionSelectorFunc,
+  SelectorSettings,
+  NextPageSelectorFunc,
+  FetchSettings,
+  ChannelSettings,
+  MediaSettings,
+};

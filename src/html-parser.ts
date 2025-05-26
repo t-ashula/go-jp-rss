@@ -8,7 +8,7 @@ import { logger, DEFAULT_USER_AGENT, DEFAULT_FETCH_TIMEOUT } from "./config.js";
  * @param settings Media settings
  * @returns The HTML content
  */
-export async function fetchHtml(
+async function fetchHtml(
   url: string,
   settings: MediaSettings,
 ): Promise<string> {
@@ -44,10 +44,7 @@ export async function fetchHtml(
  * @param settings Media settings
  * @returns Array of news items
  */
-export function parseNewsItems(
-  html: string,
-  settings: MediaSettings,
-): NewsItem[] {
+function parseNewsItems(html: string, settings: MediaSettings): NewsItem[] {
   const dom = new JSDOM(html);
   const document = dom.window.document;
 
@@ -127,7 +124,7 @@ export function parseNewsItems(
  * @param currentUrl Current URL for resolving relative URLs
  * @returns Next page URL or null
  */
-export function getNextPageUrl(
+function getNextPageUrl(
   html: string,
   settings: MediaSettings,
   currentUrl: URL,
@@ -161,3 +158,5 @@ export function getNextPageUrl(
 
   return null;
 }
+
+export { fetchHtml, parseNewsItems, getNextPageUrl };

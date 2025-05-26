@@ -9,7 +9,7 @@ import { logger } from "./config.js";
  * @param url Target URL
  * @returns Directory name in format: hostname-hash
  */
-export function getMediaDirectoryName(url: URL): string {
+function getMediaDirectoryName(url: URL): string {
   const hostname = url.hostname;
   const hash = crypto
     .createHash("sha256")
@@ -24,7 +24,7 @@ export function getMediaDirectoryName(url: URL): string {
  * @param url Target URL
  * @returns Media settings
  */
-export async function loadMediaSettings(url: URL): Promise<MediaSettings> {
+async function loadMediaSettings(url: URL): Promise<MediaSettings> {
   const dirName = getMediaDirectoryName(url);
   const settingsPath = path.join("media", dirName, "settings.json");
 
@@ -36,3 +36,5 @@ export async function loadMediaSettings(url: URL): Promise<MediaSettings> {
     throw error;
   }
 }
+
+export { getMediaDirectoryName, loadMediaSettings };

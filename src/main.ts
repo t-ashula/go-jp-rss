@@ -12,7 +12,7 @@ import { shouldContinueFetching } from "./fetch-utils.js";
  * Generate RSS for a specific URL using media settings
  * @param url Target URL to process
  */
-export async function generate(url: URL): Promise<void> {
+async function generate(url: URL): Promise<void> {
   // Load media settings
   const settings = await loadMediaSettings(url);
 
@@ -92,7 +92,7 @@ export async function generate(url: URL): Promise<void> {
 /**
  * Main function to fetch and process news
  */
-export async function main(): Promise<void> {
+async function main(): Promise<void> {
   try {
     const govInfoUrl = new URL("https://www.gov-online.go.jp/info/index.html");
     await generate(govInfoUrl);
@@ -101,3 +101,5 @@ export async function main(): Promise<void> {
     process.exit(1);
   }
 }
+
+export { generate, main };
