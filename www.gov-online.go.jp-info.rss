@@ -6,6 +6,90 @@
     <description>各府省ウェブサイトに公表された重要な政策や政府からのお知らせをとりまとめ、分かりやすく紹介しています。</description>
     <language>ja-JP</language>
     <item>
+      <title>景気動向指数（令和7年6月分速報）</title>
+      <link>https://www.esri.cao.go.jp/jp/stat/di/di.html</link>
+      <description>2025年8月8日 内閣府 景気動向指数（令和7年6月分速報）</description>
+      <pubDate>Fri, 08 Aug 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>インターネット取引サービスへの不正アクセス・不正取引による被害が急増しています</title>
+      <link>https://www.fsa.go.jp/ordinary/chuui/chuui_phishing.html</link>
+      <description>2025年8月8日 金融庁 インターネット取引サービスへの不正アクセス・不正取引による被害が急増しています</description>
+      <pubDate>Fri, 08 Aug 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>さくらのクラウドの開発計画の進捗状況（2025年6月末時点）を掲載しました</title>
+      <link>https://www.digital.go.jp/policies/gov_cloud</link>
+      <description>2025年8月8日 デジタル庁 さくらのクラウドの開発計画の進捗状況（2025年6月末時点）を掲載しました</description>
+      <pubDate>Fri, 08 Aug 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>APECデジタルAI大臣会合（TELMIN11）の結果</title>
+      <link>https://www.soumu.go.jp/menu_news/s-news/01tsushin08_02000194.html</link>
+      <description>2025年8月8日 総務省 APECデジタルAI大臣会合（TELMIN11）の結果</description>
+      <pubDate>Fri, 08 Aug 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>高騰する原料米価格にお困りの酒類業者の皆様へ</title>
+      <link>https://www.nta.go.jp/taxes/sake/kakaku/index.htm</link>
+      <description>2025年8月8日 国税庁 高騰する原料米価格にお困りの酒類業者の皆様へ</description>
+      <pubDate>Fri, 08 Aug 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>国立青少年教育施設の振興方策について（報告書）</title>
+      <link>https://www.mext.go.jp/b_menu/shingi/chousa/shougai/049/attach/mext_00005.html</link>
+      <description>2025年8月8日 文部科学省 国立青少年教育施設の振興方策について（報告書）</description>
+      <pubDate>Fri, 08 Aug 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>「一般財団法人2028年技能五輪国際大会日本組織委員会」を設立しました</title>
+      <link>https://www.mhlw.go.jp/stf/newpage_60437.html</link>
+      <description>2025年8月8日 厚生労働省 「一般財団法人2028年技能五輪国際大会日本組織委員会」を設立しました</description>
+      <pubDate>Fri, 08 Aug 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>令和6年「労働安全衛生調査（実態調査）」の結果を公表します</title>
+      <link>https://www.mhlw.go.jp/toukei/list/r06-46-50b.html</link>
+      <description>2025年8月8日 厚生労働省 令和6年「労働安全衛生調査（実態調査）」の結果を公表します</description>
+      <pubDate>Fri, 08 Aug 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>厚生労働省及びPMDAはWHOリスト登録当局に指定されました</title>
+      <link>https://www.mhlw.go.jp/stf/newpage_61166.html</link>
+      <description>2025年8月8日 厚生労働省 厚生労働省及びPMDAはWHOリスト登録当局に指定されました</description>
+      <pubDate>Fri, 08 Aug 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>APECデジタルAI大臣会合（TELMIN11）を開催しました</title>
+      <link>https://www.meti.go.jp/press/2025/08/20250807001/20250807001.html</link>
+      <description>2025年8月8日 経済産業省 APECデジタルAI大臣会合（TELMIN11）を開催しました</description>
+      <pubDate>Fri, 08 Aug 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>「交通空白」解消パイロット・プロジェクト 第5弾を発表します！</title>
+      <link>https://www.mlit.go.jp/report/press/sogo12_hh_000467.html</link>
+      <description>2025年8月8日 国土交通省 「交通空白」解消パイロット・プロジェクト 第5弾を発表します！</description>
+      <pubDate>Fri, 08 Aug 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>鹿児島県に大雨特別警報発表</title>
+      <link>https://www.mlit.go.jp/report/press/mizukokudo04_hh_000271.html</link>
+      <description>2025年8月8日 国土交通省 鹿児島県に大雨特別警報発表</description>
+      <pubDate>Fri, 08 Aug 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>令和7年8月6日からの大雨について</title>
+      <link>https://www.mlit.go.jp/saigai/saigai_250807.html</link>
+      <description>2025年8月8日 国土交通省 令和7年8月6日からの大雨について</description>
+      <pubDate>Fri, 08 Aug 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>海の事故ゼロキャンペーン期間中の海難発生状況(速報値)</title>
+      <link>https://www.kaiho.mlit.go.jp/info/kouhou/post-1233.html</link>
+      <description>2025年8月8日 海上保安庁 海の事故ゼロキャンペーン期間中の海難発生状況(速報値)</description>
+      <pubDate>Fri, 08 Aug 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>住民基本台帳に基づく人口、人口動態及び世帯数（令和7年1月1日現在）</title>
       <link>https://www.soumu.go.jp/menu_news/s-news/01gyosei02_02000389.html</link>
       <description>2025年8月7日 総務省 住民基本台帳に基づく人口、人口動態及び世帯数（令和7年1月1日現在）</description>
@@ -159,90 +243,6 @@
       <title>「昭和100年」関連施策のロゴデザインの決定について</title>
       <link>https://www.cas.go.jp/jp/houdou/20250731.html</link>
       <description>2025年8月4日 内閣官房 「昭和100年」関連施策のロゴデザインの決定について</description>
-      <pubDate>Mon, 04 Aug 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>「特区で変わる地方創生」特設ページを開設しました！</title>
-      <link>https://www.chisou.go.jp/tiiki/toc/index.html</link>
-      <description>2025年8月4日 内閣府 「特区で変わる地方創生」特設ページを開設しました！</description>
-      <pubDate>Mon, 04 Aug 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>油井亀美也宇宙飛行士搭乗の 米国クルードラゴン宇宙船運用11号機の打上げ成功について（内閣府特命担当大臣（宇宙政策）談話）［PDF：138KB］</title>
-      <link>https://www8.cao.go.jp/space/pdf/danwa/250802danwa.pdf</link>
-      <description>2025年8月4日 内閣府 油井亀美也宇宙飛行士搭乗の 米国クルードラゴン宇宙船運用11号機の打上げ成功について（内閣府特命担当大臣（宇宙政策）談話）［PDF：138KB］</description>
-      <pubDate>Mon, 04 Aug 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>人工知能政策推進室の立ち上げについて</title>
-      <link>https://www8.cao.go.jp/cstp/stmain/20250801ai.html</link>
-      <description>2025年8月4日 内閣府 人工知能政策推進室の立ち上げについて</description>
-      <pubDate>Mon, 04 Aug 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>知的財産取引適正化ワーキンググループの開催について</title>
-      <link>https://www.jftc.go.jp/houdou/pressrelease/2025/aug/250801_chizaiwg.html</link>
-      <description>2025年8月4日 公正取引委員会 知的財産取引適正化ワーキンググループの開催について</description>
-      <pubDate>Mon, 04 Aug 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>令和7年上半期の特殊詐欺及びSNS型投資・ロマンス詐欺の認知・検挙状況等について</title>
-      <link>https://www.npa.go.jp/publications/statistics/sousa/sagi.html</link>
-      <description>2025年8月4日 警察庁 令和7年上半期の特殊詐欺及びSNS型投資・ロマンス詐欺の認知・検挙状況等について</description>
-      <pubDate>Mon, 04 Aug 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>令和7年カムチャツカ半島付近の地震に伴う津波にかかる災害等に対する金融上の措置について</title>
-      <link>https://www.fsa.go.jp/news/r7/ginkou/20250731-2.html</link>
-      <description>2025年8月4日 金融庁 令和7年カムチャツカ半島付近の地震に伴う津波にかかる災害等に対する金融上の措置について</description>
-      <pubDate>Mon, 04 Aug 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>共同データプラットフォームによる本格的なデータ収集の開始</title>
-      <link>https://www.fsa.go.jp/news/r7/sonota/20250801/20250801.html</link>
-      <description>2025年8月4日 金融庁 共同データプラットフォームによる本格的なデータ収集の開始</description>
-      <pubDate>Mon, 04 Aug 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>こども家庭センターの設置状況について</title>
-      <link>https://www.cfa.go.jp/press/cbe0a7fd-98ce-4e2f-a7d5-527a09f8e07c</link>
-      <description>2025年8月4日 こども家庭庁 こども家庭センターの設置状況について</description>
-      <pubDate>Mon, 04 Aug 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>労働力調査（基本集計）2025年（令和7年）6月分及び4～6月期平均</title>
-      <link>https://www.soumu.go.jp/menu_news/s-news/01toukei04_01000282.html</link>
-      <description>2025年8月4日 総務省 労働力調査（基本集計）2025年（令和7年）6月分及び4～6月期平均</description>
-      <pubDate>Mon, 04 Aug 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>「パレスチナ問題の平和的解決及び二国家解決の実現のためのハイレベル国際会合」への参加（結果概要）</title>
-      <link>https://www.mofa.go.jp/mofaj/press/release/pressit_000001_02498.html</link>
-      <description>2025年8月4日 外務省 「パレスチナ問題の平和的解決及び二国家解決の実現のためのハイレベル国際会合」への参加（結果概要）</description>
-      <pubDate>Mon, 04 Aug 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>緊急事態宣言解除を受けたミャンマー情勢について（外務大臣談話）</title>
-      <link>https://www.mofa.go.jp/mofaj/press/danwa/pageit_000001_00030.html</link>
-      <description>2025年8月4日 外務省 緊急事態宣言解除を受けたミャンマー情勢について（外務大臣談話）</description>
-      <pubDate>Mon, 04 Aug 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>「2027年国際園芸博覧会室」の設置</title>
-      <link>https://www.mofa.go.jp/mofaj/press/release/pressit_000001_02504.html</link>
-      <description>2025年8月4日 外務省 「2027年国際園芸博覧会室」の設置</description>
-      <pubDate>Mon, 04 Aug 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>油井亀美也宇宙飛行士搭乗の米国クルードラゴン宇宙船運用11号機の打上げ成功について［大臣談話］</title>
-      <link>https://www.mext.go.jp/b_menu/daijin/detail/mext_00608.html</link>
-      <description>2025年8月4日 文部科学省 油井亀美也宇宙飛行士搭乗の米国クルードラゴン宇宙船運用11号機の打上げ成功について［大臣談話］</description>
-      <pubDate>Mon, 04 Aug 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>政府全体でこども・若者の自殺防止に向けた取組を強化します</title>
-      <link>https://www.mhlw.go.jp/stf/jisatsutaisaku_press250801.html</link>
-      <description>2025年8月4日 厚生労働省 政府全体でこども・若者の自殺防止に向けた取組を強化します</description>
       <pubDate>Mon, 04 Aug 2025 00:00:00 GMT</pubDate>
     </item>
   </channel>
