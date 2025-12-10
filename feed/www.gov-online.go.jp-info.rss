@@ -6,6 +6,54 @@
     <description>各府省ウェブサイトに公表された重要な政策や政府からのお知らせをとりまとめ、分かりやすく紹介しています。</description>
     <language>ja-JP</language>
     <item>
+      <title>景気ウォッチャー調査（令和7年11月調査）を掲載しました</title>
+      <link>https://www5.cao.go.jp/keizai3/watcher_index.html</link>
+      <description>2025年12月9日 内閣府 景気ウォッチャー調査（令和7年11月調査）を掲載しました</description>
+      <pubDate>Tue, 09 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>インターネット取引サービスへの不正アクセス・不正取引による被害が急増しています</title>
+      <link>https://www.fsa.go.jp/ordinary/chuui/chuui_phishing.html</link>
+      <description>2025年12月9日 金融庁 インターネット取引サービスへの不正アクセス・不正取引による被害が急増しています</description>
+      <pubDate>Tue, 09 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>経済・財政・人口と暮らし（都道府県ごと）に関するダッシュボードとデータカタログを更新しました</title>
+      <link>https://www.digital.go.jp/resources/japandashboard/economy-fiscal-living-prefecture</link>
+      <description>2025年12月9日 デジタル庁 経済・財政・人口と暮らし（都道府県ごと）に関するダッシュボードとデータカタログを更新しました</description>
+      <pubDate>Tue, 09 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>「今後目指すべき地方財政の姿と令和8年度の地方財政への対応等についての意見」の提出</title>
+      <link>https://www.soumu.go.jp/menu_news/s-news/01zaisei02_02000408.html</link>
+      <description>2025年12月9日 総務省 「今後目指すべき地方財政の姿と令和8年度の地方財政への対応等についての意見」の提出</description>
+      <pubDate>Tue, 09 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>令和7年度補正予算</title>
+      <link>https://www.mof.go.jp/policy/budget/budger_workflow/budget/fy2025/20251128.html</link>
+      <description>2025年12月9日 財務省 令和7年度補正予算</description>
+      <pubDate>Tue, 09 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>揮発油税等の特例税率の廃止について</title>
+      <link>https://www.nta.go.jp/information/other/data/r07/kihatsu/index.htm</link>
+      <description>2025年12月9日 国税庁 揮発油税等の特例税率の廃止について</description>
+      <pubDate>Tue, 09 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>拡がってます、グリーン物流の輪～令和7年度物流パートナーシップ優良事業者表彰受賞者決定～</title>
+      <link>https://www.mlit.go.jp/report/press/tokatsu01_hh_000962.html</link>
+      <description>2025年12月9日 国土交通省 拡がってます、グリーン物流の輪～令和7年度物流パートナーシップ優良事業者表彰受賞者決定～</description>
+      <pubDate>Tue, 09 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>ワシントン条約第20回締約国会議の結果概要について</title>
+      <link>https://www.env.go.jp/press/press_01901.html</link>
+      <description>2025年12月9日 環境省 ワシントン条約第20回締約国会議の結果概要について</description>
+      <pubDate>Tue, 09 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>毎年12月10日～16日は「北朝鮮人権侵害問題啓発週間」です。</title>
       <link>https://www.rachi.go.jp/index.html</link>
       <description>2025年12月8日 内閣官房 毎年12月10日～16日は「北朝鮮人権侵害問題啓発週間」です。</description>
@@ -196,54 +244,6 @@
       <link>https://www.soumu.go.jp/menu_news/s-news/01shoubo01_02001142.html</link>
       <description>2025年12月4日 消防庁 TVアニメ『火喰鳥　羽州ぼろ鳶組』とタイアップした消防団員PRポスターの配布</description>
       <pubDate>Thu, 04 Dec 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>「第77回人権週間」の実施について</title>
-      <link>https://www.moj.go.jp/JINKEN/jinken04_00346.html</link>
-      <description>2025年12月4日 法務省 「第77回人権週間」の実施について</description>
-      <pubDate>Thu, 04 Dec 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>「育成就労制度の関係省令等について」を掲載しました</title>
-      <link>https://www.moj.go.jp/isa/03_00163.html</link>
-      <description>2025年12月4日 出入国在留管理庁 「育成就労制度の関係省令等について」を掲載しました</description>
-      <pubDate>Thu, 04 Dec 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>世界の温室効果ガス排出量と削減目標の「今」を知ろう――「エネルギー白書2025」から（前編）</title>
-      <link>https://www.enecho.meti.go.jp/about/special/johoteikyo/energyhakusho2025_ghg01.html</link>
-      <description>2025年12月4日 資源エネルギー庁 世界の温室効果ガス排出量と削減目標の「今」を知ろう――「エネルギー白書2025」から（前編）</description>
-      <pubDate>Thu, 04 Dec 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>WIPO GREENとの協力</title>
-      <link>https://www.jpo.go.jp/news/kokusai/wipo/green.html</link>
-      <description>2025年12月4日 特許庁 WIPO GREENとの協力</description>
-      <pubDate>Thu, 04 Dec 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>旅客船の年末年始安全総点検を実施します～海事局長等による点検状況の確認を行います～</title>
-      <link>https://www.mlit.go.jp/report/press/kaiji06_hh_000381.html</link>
-      <description>2025年12月4日 国土交通省 旅客船の年末年始安全総点検を実施します～海事局長等による点検状況の確認を行います～</description>
-      <pubDate>Thu, 04 Dec 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>年末年始の輸送等に関する安全総点検における自動車運送事業者の点検実施状況を査察します</title>
-      <link>https://www.mlit.go.jp/report/press/jidosha02_hh_000736.html</link>
-      <description>2025年12月4日 国土交通省 年末年始の輸送等に関する安全総点検における自動車運送事業者の点検実施状況を査察します</description>
-      <pubDate>Thu, 04 Dec 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>航空機による大気観測事業「CONTRAIL」が次世代機（ボーイング787-9型機）により運用開始されます</title>
-      <link>https://www.env.go.jp/press/press_01528.html</link>
-      <description>2025年12月4日 環境省 航空機による大気観測事業「CONTRAIL」が次世代機（ボーイング787-9型機）により運用開始されます</description>
-      <pubDate>Thu, 04 Dec 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>「みちびき7号機」の打上げについて</title>
-      <link>https://www8.cao.go.jp/space/qzs/launch_plan_q7.html</link>
-      <description>2025年12月3日 内閣府 「みちびき7号機」の打上げについて</description>
-      <pubDate>Wed, 03 Dec 2025 00:00:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
