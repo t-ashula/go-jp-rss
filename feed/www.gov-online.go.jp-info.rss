@@ -6,6 +6,36 @@
     <description>各府省ウェブサイトに公表された重要な政策や政府からのお知らせをとりまとめ、分かりやすく紹介しています。</description>
     <language>ja-JP</language>
     <item>
+      <title>更生保護制度に関する世論調査（令和7年11月調査）</title>
+      <link>https://survey.gov-online.go.jp/public_safety/202512/hutai/r07/r07-kouseihogo/</link>
+      <description>2026年1月5日 内閣府 更生保護制度に関する世論調査（令和7年11月調査）</description>
+      <pubDate>Mon, 05 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>「労務費の適切な転嫁のための価格交渉に関する指針」の改正について</title>
+      <link>https://www.jftc.go.jp/houdou/pressrelease/2025/dec/202512_roumuhi.html</link>
+      <description>2026年1月5日 公正取引委員会 「労務費の適切な転嫁のための価格交渉に関する指針」の改正について</description>
+      <pubDate>Mon, 05 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>玩具と称した真正拳銃について</title>
+      <link>https://www.npa.go.jp/newlyarrived/index.html</link>
+      <description>2026年1月5日 警察庁 玩具と称した真正拳銃について</description>
+      <pubDate>Mon, 05 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>預貯金の不正送金被害等の発生状況（令和7年9月末）について公表しました</title>
+      <link>https://www.fsa.go.jp/news/r7/ginkou/20251226.html</link>
+      <description>2026年1月5日 金融庁 預貯金の不正送金被害等の発生状況（令和7年9月末）について公表しました</description>
+      <pubDate>Mon, 05 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>金融経済教育推進機構（J-FLEC）における「J-FLECオンライン講座」の開始</title>
+      <link>https://www.fsa.go.jp/news/r7/sonota/20251226-3/20251226-3.html</link>
+      <description>2026年1月5日 金融庁 金融経済教育推進機構（J-FLEC）における「J-FLECオンライン講座」の開始</description>
+      <pubDate>Mon, 05 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>（独）男女共同参画機構（令和8年4月1日設立予定）について</title>
       <link>https://www.gender.go.jp/about_danjo/sankakukikou/index.html</link>
       <description>2025年12月26日 内閣府 （独）男女共同参画機構（令和8年4月1日設立予定）について</description>
@@ -93,36 +123,6 @@
       <title>大韓民国産及び中華人民共和国産水酸化カリウムに対する不当廉売関税の課税期間の延長に関する調査を開始します</title>
       <link>https://www.meti.go.jp/press/2025/12/20251225001/20251225001.html</link>
       <description>2025年12月26日 経済産業省 大韓民国産及び中華人民共和国産水酸化カリウムに対する不当廉売関税の課税期間の延長に関する調査を開始します</description>
-      <pubDate>Fri, 26 Dec 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>「省エネコミュニケーション・ランキング制度」の評価結果を発表します</title>
-      <link>https://www.meti.go.jp/press/2025/12/20251224001/20251224001.html</link>
-      <description>2025年12月26日 資源エネルギー庁 「省エネコミュニケーション・ランキング制度」の評価結果を発表します</description>
-      <pubDate>Fri, 26 Dec 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>令和5年改正空家法に基づく取組が広がる～空き家対策に取り組む全国の市区町村の状況について（令和7年3月31 日時点調査）～</title>
-      <link>https://www.mlit.go.jp/report/press/house03_hh_000257.html</link>
-      <description>2025年12月26日 国土交通省 令和5年改正空家法に基づく取組が広がる～空き家対策に取り組む全国の市区町村の状況について（令和7年3月31 日時点調査）～</description>
-      <pubDate>Fri, 26 Dec 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>水道におけるPFOS 及びPFOA に関するフォローアップ調査の結果について～昨年度とりまとめ以降の調査結果について公表します～</title>
-      <link>https://www.mlit.go.jp/report/press/mizukokudo13_hh_000704.html</link>
-      <description>2025年12月26日 国土交通省 水道におけるPFOS 及びPFOA に関するフォローアップ調査の結果について～昨年度とりまとめ以降の調査結果について公表します～</description>
-      <pubDate>Fri, 26 Dec 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>水道におけるPFOS及びPFOAに関するフォローアップ調査の結果について</title>
-      <link>https://www.env.go.jp/press/press_02143.html</link>
-      <description>2025年12月26日 環境省 水道におけるPFOS及びPFOAに関するフォローアップ調査の結果について</description>
-      <pubDate>Fri, 26 Dec 2025 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>地域経済の構造を自動分析できる「地域経済循環分析ツール」の最新版（2022年版）の公開について</title>
-      <link>https://www.env.go.jp/press/press_02173.html</link>
-      <description>2025年12月26日 環境省 地域経済の構造を自動分析できる「地域経済循環分析ツール」の最新版（2022年版）の公開について</description>
       <pubDate>Fri, 26 Dec 2025 00:00:00 GMT</pubDate>
     </item>
   </channel>
