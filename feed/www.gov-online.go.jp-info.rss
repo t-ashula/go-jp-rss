@@ -6,6 +6,48 @@
     <description>各府省ウェブサイトに公表された重要な政策や政府からのお知らせをとりまとめ、分かりやすく紹介しています。</description>
     <language>ja-JP</language>
     <item>
+      <title>令和7年の犯罪情勢について</title>
+      <link>https://www.npa.go.jp/news/release/2026/20260212001.html</link>
+      <description>2026年2月13日 警察庁 令和7年の犯罪情勢について</description>
+      <pubDate>Fri, 13 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>ウェブサイト上で信頼できる電気工事業者かのように表示した上、不要な電気工事を実施し、料金を請求する電気工事業者に関する注意喚起</title>
+      <link>https://www.caa.go.jp/notice/entry/045076/</link>
+      <description>2026年2月13日 消費者庁 ウェブサイト上で信頼できる電気工事業者かのように表示した上、不要な電気工事を実施し、料金を請求する電気工事業者に関する注意喚起</description>
+      <pubDate>Fri, 13 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>「ネットワークのIP化に対応した電気通信設備に係る技術的条件」に関する情報通信審議会からの一部答申</title>
+      <link>https://www.soumu.go.jp/menu_news/s-news/01kiban05_02000394.html</link>
+      <description>2026年2月13日 総務省 「ネットワークのIP化に対応した電気通信設備に係る技術的条件」に関する情報通信審議会からの一部答申</description>
+      <pubDate>Fri, 13 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>2026年1月の地震活動の評価</title>
+      <link>https://www.mext.go.jp/a_menu/kaihatu/jishin/mext_00228.html</link>
+      <description>2026年2月13日 文部科学省 2026年1月の地震活動の評価</description>
+      <pubDate>Fri, 13 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>第76回ベルリン国際映画祭において日本映画の海外発信の取組を実施します</title>
+      <link>https://www.bunka.go.jp/koho_hodo_oshirase/hodohappyo/94329201.html</link>
+      <description>2026年2月13日 文化庁 第76回ベルリン国際映画祭において日本映画の海外発信の取組を実施します</description>
+      <pubDate>Fri, 13 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>「2017年全国がん登録5年生存率報告」の結果</title>
+      <link>https://www.mhlw.go.jp/stf/newpage_70364.html</link>
+      <description>2026年2月13日 厚生労働省 「2017年全国がん登録5年生存率報告」の結果</description>
+      <pubDate>Fri, 13 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>国内産農産物における農薬の使用状況及び残留状況調査の結果について（令和6年度）</title>
+      <link>https://www.maff.go.jp/j/press/syouan/nouyaku/260212.html</link>
+      <description>2026年2月13日 農林水産省 国内産農産物における農薬の使用状況及び残留状況調査の結果について（令和6年度）</description>
+      <pubDate>Fri, 13 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>日本経済レポート（2025年度）</title>
       <link>https://www5.cao.go.jp/keizai3/whitepaper.html</link>
       <description>2026年2月12日 内閣府 日本経済レポート（2025年度）</description>
@@ -75,6 +117,12 @@
       <title>第8回日本オープンイノベーション大賞「国土交通大臣賞」を授与しました～「共同輸送データベースの普及による持続可能な物流～フィジカルインターネットの実現」が受賞～</title>
       <link>https://www.mlit.go.jp/report/press/sogo17_hh_000206.html</link>
       <description>2026年2月12日 国土交通省 第8回日本オープンイノベーション大賞「国土交通大臣賞」を授与しました～「共同輸送データベースの普及による持続可能な物流～フィジカルインターネットの実現」が受賞～</description>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>速報版解析雨量における気象レーダーの二重偏波情報の高度利用の再開について</title>
+      <link>https://www.jma.go.jp/jma/press/2602/10b/20260210_sokuhobankaisekiuryo.html</link>
+      <description>2026年2月12日 気象庁 速報版解析雨量における気象レーダーの二重偏波情報の高度利用の再開について</description>
       <pubDate>Thu, 12 Feb 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
@@ -196,54 +244,6 @@
       <link>https://www.mlit.go.jp/report/press/house05_hh_001118.html</link>
       <description>2026年2月9日 国土交通省 民間建築物における吹付けアスベスト等飛散防止対策に関する調査（令和6年度）の結果～飛散防止対策等の対応率が96.8％に～</description>
       <pubDate>Mon, 09 Feb 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>金融安定理事会による「国債レポ市場における脆弱性」の公表について</title>
-      <link>https://www.fsa.go.jp/inter/fsf/20260205/20260205.html</link>
-      <description>2026年2月6日 金融庁 金融安定理事会による「国債レポ市場における脆弱性」の公表について</description>
-      <pubDate>Fri, 06 Feb 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>「令和7年度消費生活意識調査(第4回)」の結果について</title>
-      <link>https://www.caa.go.jp/notice/entry/045033/</link>
-      <description>2026年2月6日 消費者庁 「令和7年度消費生活意識調査(第4回)」の結果について</description>
-      <pubDate>Fri, 06 Feb 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>家計調査報告（家計収支編）2025年（令和7年）12月分、10～12月期平均及び2025年平均</title>
-      <link>https://www.soumu.go.jp/menu_news/s-news/01toukei07_01000282.html</link>
-      <description>2026年2月6日 総務省 家計調査報告（家計収支編）2025年（令和7年）12月分、10～12月期平均及び2025年平均</description>
-      <pubDate>Fri, 06 Feb 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>「ニパウイルス感染症のリスク評価等について」の報道発表資料を掲載しました</title>
-      <link>https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/henipavirus.html</link>
-      <description>2026年2月6日 厚生労働省 「ニパウイルス感染症のリスク評価等について」の報道発表資料を掲載しました</description>
-      <pubDate>Fri, 06 Feb 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>ジオAI（地理空間情報×AI）の推進に向けた議論を開始します！～「ジオAI研究会」（第1回）の開催～</title>
-      <link>https://www.mlit.go.jp/report/press/tochi_fudousan_kensetsugyo17_hh_000001_00075.html</link>
-      <description>2026年2月6日 国土交通省 ジオAI（地理空間情報×AI）の推進に向けた議論を開始します！～「ジオAI研究会」（第1回）の開催～</description>
-      <pubDate>Fri, 06 Feb 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>令和8年春の全国交通安全運動ポスター・チラシを掲載しました</title>
-      <link>https://www8.cao.go.jp/koutu/keihatsu/index-ke.html</link>
-      <description>2026年2月5日 内閣府 令和8年春の全国交通安全運動ポスター・チラシを掲載しました</description>
-      <pubDate>Thu, 05 Feb 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>捜査特別報奨金に関する広告（令和8年2月5日）</title>
-      <link>https://www.npa.go.jp/bureau/criminal/reward/contents114.html</link>
-      <description>2026年2月5日 警察庁 捜査特別報奨金に関する広告（令和8年2月5日）</description>
-      <pubDate>Thu, 05 Feb 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>日・フィリピン新租税条約の実質合意</title>
-      <link>https://www.mofa.go.jp/mofaj/press/release/pressit_000001_03282.html</link>
-      <description>2026年2月5日 外務省 日・フィリピン新租税条約の実質合意</description>
-      <pubDate>Thu, 05 Feb 2026 00:00:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
