@@ -6,6 +6,78 @@
     <description>各府省ウェブサイトに公表された重要な政策や政府からのお知らせをとりまとめ、分かりやすく紹介しています。</description>
     <language>ja-JP</language>
     <item>
+      <title>国民の保護に関する基本指針の一部変更について</title>
+      <link>https://www.kokuminhogo.go.jp/gaiyou/yujikanrensei/kihonshishin.html</link>
+      <description>2026年4月1日 内閣官房 国民の保護に関する基本指針の一部変更について</description>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>緊急事態を想定した避難施設（シェルター）の確保に関する基本方針について</title>
+      <link>https://www.kokuminhogo.go.jp/hinan/index.html#shelter</link>
+      <description>2026年4月1日 内閣官房 緊急事態を想定した避難施設（シェルター）の確保に関する基本方針について</description>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>消費生活用製品の重大製品事故:長期使用のエアコン(室外機)についての注意喚起、リコール製品で火災等(電気ストーブ)</title>
+      <link>https://www.caa.go.jp/notice/entry/045700/</link>
+      <description>2026年4月1日 消費者庁 消費生活用製品の重大製品事故:長期使用のエアコン(室外機)についての注意喚起、リコール製品で火災等(電気ストーブ)</description>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>復興庁所管法令等に基づく申請等の手続における旧姓使用について</title>
+      <link>https://www.reconstruction.go.jp/topics/cat-114/cat-231/202603261608359470/</link>
+      <description>2026年4月1日 復興庁 復興庁所管法令等に基づく申請等の手続における旧姓使用について</description>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>「日本郵政・日本郵便モニタリングレポート　2025」の公表</title>
+      <link>https://www.soumu.go.jp/menu_news/s-news/02ryutsu13_04000092.html</link>
+      <description>2026年4月1日 総務省 「日本郵政・日本郵便モニタリングレポート　2025」の公表</description>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>NTT株式会社等の令和8年度事業計画の認可</title>
+      <link>https://www.soumu.go.jp/menu_news/s-news/01kiban02_02000591.html</link>
+      <description>2026年4月1日 総務省 NTT株式会社等の令和8年度事業計画の認可</description>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>日・インドネシア首脳会談</title>
+      <link>https://www.mofa.go.jp/mofaj/s_sa/sea2/id/pageit_000001_00011.html</link>
+      <description>2026年4月1日 外務省 日・インドネシア首脳会談</description>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>所得税法等の一部を改正する法律が成立しました</title>
+      <link>https://www.mof.go.jp/about_mof/bills/221diet/index.html#a02</link>
+      <description>2026年4月1日 財務省 所得税法等の一部を改正する法律が成立しました</description>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>輸出物品販売場制度のリファンド方式への見直し</title>
+      <link>https://www.nta.go.jp/publication/pamph/shohi/menzei/201805/format/002.htm</link>
+      <description>2026年4月1日 国税庁 輸出物品販売場制度のリファンド方式への見直し</description>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>通勤手当の非課税限度額の改正について</title>
+      <link>https://www.nta.go.jp/users/gensen/2026tsukin/index.htm</link>
+      <description>2026年4月1日 国税庁 通勤手当の非課税限度額の改正について</description>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>フィブリノゲン製剤等に関する相談窓口について</title>
+      <link>https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000200729_00003.html</link>
+      <description>2026年4月1日 厚生労働省 フィブリノゲン製剤等に関する相談窓口について</description>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>特許審査の品質管理に関するマニュアル（第５版）を公表しました</title>
+      <link>https://www.jpo.go.jp/introduction/hinshitu/shinsa/tokkyo/tokkyo_manual.html</link>
+      <description>2026年4月1日 特許庁 特許審査の品質管理に関するマニュアル（第５版）を公表しました</description>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>「サプライチェーン強化に向けたセキュリティ対策評価制度に関する制度構築方針」（SCS評価制度の構築方針）を公表しました</title>
       <link>https://www.cyber.go.jp/policy/group/kihon-2/policy.html#supply-chain</link>
       <description>2026年3月31日 内閣官房 「サプライチェーン強化に向けたセキュリティ対策評価制度に関する制度構築方針」（SCS評価制度の構築方針）を公表しました</description>
