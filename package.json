@@ -14,7 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "fast-xml-parser": "^5.5.11",
-    "jsdom": "^27.1.0",
+    "jsdom": "^29.0.2",
     "pino": "^10.3.1"
   },
   "devDependencies": {
